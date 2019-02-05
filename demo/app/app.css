@@ -1,0 +1,13 @@
+﻿@import '~nativescript-theme-core/css/core.light.css';
+
+.item-template-label {
+    margin-left: 15;
+}
+
+.green-label {
+    color: green;
+}
+
+.red-label {
+    color: red;
+}

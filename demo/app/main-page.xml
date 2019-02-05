@@ -1,0 +1,27 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" class="page"
+	xmlns:picker="nativescript-picker">
+	<GridLayout columns="*, *" rows="50, 100, *" backgroundColor="green">
+		<picker:PickerTextField row="0" col="0" colSpan="2" hint="Select item 1" padding="5" backgroundColor="orange" color="white" 
+								items="{{ myItems1 }}" />
+
+		<picker:PickerTextField row="1" col="1" hint="Select item 2" padding="10"
+								items="{{ observableArray }}"
+								displayMember="name"
+								modalAnimated="false"
+								pickerTitle="Second picker:">
+			<picker:PickerTextField.itemTemplate>
+				<GridLayout columns="auto, *" rows="auto, *" backgroundColor="lightBlue" marginBottom="10">
+					<Label text="Statick text: " colSpan="2" fontWeight="bold" margin="20"></Label>
+					<Label text="{{ id }}" col="0" row="1" class="item-template-label green-label" marginBottom="20"/>
+					<Label text="{{ name }}" col="1" row="1" class="item-template-label red-label" marginBottom="20" />
+				</GridLayout>
+			</picker:PickerTextField.itemTemplate>
+		</picker:PickerTextField>
+
+		<picker:PickerTextField row="2" col="0" hint="Select item 3" padding="10" backgroundColor="white" color="blue"
+								items="{{ observableArray }}"
+								pickerTitle="{{ thirdTitle }}"/>
+	
+		<!-- <Label text="second Label" row="2" col="0" colSpan="2" backgroundColor="red"/> -->
+	</GridLayout>
+</Page>
