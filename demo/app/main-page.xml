@@ -1,14 +1,15 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" class="page"
 	xmlns:picker="nativescript-picker">
-	<GridLayout columns="*, *" rows="50, 100, *" backgroundColor="green">
+	<GridLayout columns="*, *" rows="50, 100, *, 50" backgroundColor="green">
 		<picker:PickerTextField row="0" col="0" colSpan="2" hint="Select item 1" padding="5" backgroundColor="orange" color="white" 
-								items="{{ myItems1 }}" />
+								items="{{ myItems1 }}" text="static text"/>
 
 		<picker:PickerTextField row="1" col="1" hint="Select item 2" padding="10"
 								items="{{ observableArray }}"
-								displayMember="name"
+								textField="name"
 								modalAnimated="false"
-								pickerTitle="Second picker:">
+								valueField="MyWrongPropertyName"
+								pickerTitle="Second picker">
 			<picker:PickerTextField.itemTemplate>
 				<GridLayout columns="auto, *" rows="auto, *" backgroundColor="lightBlue" marginBottom="10">
 					<Label text="Statick text: " colSpan="2" fontWeight="bold" margin="20"></Label>
@@ -18,10 +19,19 @@
 			</picker:PickerTextField.itemTemplate>
 		</picker:PickerTextField>
 
-		<picker:PickerTextField row="2" col="0" hint="Select item 3" padding="10" backgroundColor="white" color="blue"
+		<picker:PickerTextField row="2" col="0" hint="Select item 3" padding="10" backgroundColor="white" color="blue" id="thirdPicker"
 								items="{{ observableArray }}"
-								pickerTitle="{{ thirdTitle }}"/>
+								textField="id"
+								valueField="name"
+								pickerTitle="{{ thirdTitle }}">
+			<picker:PickerTextField.itemTemplate>
+				<GridLayout rows="auto, auto" backgroundColor="lightBlue" marginBottom="10">
+					<Label text="{{ id }}" class="item-template-label red-label" margin="20"/>
+					<Label text="{{ name }}" row="1" class="item-template-label green-label" marginBottom="20" />
+				</GridLayout>
+			</picker:PickerTextField.itemTemplate>
+		</picker:PickerTextField>
 	
-		<!-- <Label text="second Label" row="2" col="0" colSpan="2" backgroundColor="red"/> -->
+		<Button tap="checkTap" text="Check third picker values" row="3" color="white" backgroundColor="red"/>
 	</GridLayout>
 </Page>

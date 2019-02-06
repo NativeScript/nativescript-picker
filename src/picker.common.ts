@@ -1,26 +1,23 @@
 import { Observable } from 'tns-core-modules/data/observable';
-import * as app from 'tns-core-modules/application';
-import * as dialogs from 'tns-core-modules/ui/dialogs';
-import { Property, CssProperty, Template } from "tns-core-modules/ui/core/view";
-import { booleanConverter } from "tns-core-modules/ui/core/view";
-import { Label } from "tns-core-modules/ui/label";
-import { Visibility } from "tns-core-modules/ui/styling/style-properties";
-import { View, KeyedTemplate } from "tns-core-modules/ui/core/view";
-import { ViewBase } from "tns-core-modules/ui/core/view-base";
+import { Property, Template, booleanConverter } from "tns-core-modules/ui/core/view/view";
+import { Label } from "tns-core-modules/ui/label/label";
+import { View } from "tns-core-modules/ui/core/view/view";
 import { TextField } from 'tns-core-modules/ui/text-field/text-field';
-import { Button } from 'tns-core-modules/ui/button';
+import { Button } from 'tns-core-modules/ui/button/button';
 
 import { GestureEventData } from "tns-core-modules/ui/gestures";
-import { ListView, ItemEventData } from "tns-core-modules/ui/list-view";
-import { Page, ShownModallyData, Color } from 'tns-core-modules/ui/page/page';
+import { ListView, ItemEventData } from "tns-core-modules/ui/list-view/list-view";
+import { Page, ShownModallyData, Color } from 'tns-core-modules/ui/page';
 import { fromObject } from "tns-core-modules/data/observable";
 import { ItemsSource } from ".";
 import { addWeakEventListener, removeWeakEventListener } from "tns-core-modules/ui/core/weak-event-listener";
-import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array";
+import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array/observable-array";
 import { GridLayout, GridUnitType, ItemSpec } from 'tns-core-modules/ui/layouts/grid-layout/grid-layout';
+import { ActionItem } from 'tns-core-modules/ui/action-bar/action-bar';
+import { Frame } from 'tns-core-modules/ui/frame/frame';
 
 export namespace knownTemplates {
-    export let itemTemplate = "itemTemplate";
+	export let itemTemplate = "itemTemplate";
 }
 
 export class PickerTextField extends TextField {
@@ -33,77 +30,79 @@ export class PickerTextField extends TextField {
 	public items: any[] | ItemsSource;
 	public itemTemplate: string | Template;
 	public modalAnimated: boolean;
-	public displayMember: string;
+	public textField: string;
+	public valueField: string;
+	public selectedValue: any;
+	public selectedIndex: number;
+	public closeButtonText: string;
 
 	public _modalListView: ListView;
-	public _closeButton: Button;
-	public _modalRoot: GridLayout;
+	public _modalRoot: Frame;
+	public _page: Page;
+	private _modalGridLayout: GridLayout;
 
 	private closeCallback;
-	private _titleLabel: Label;
 
 	constructor() {
 		super();
 		this.on(Button.tapEvent, (args: GestureEventData) => {
 			this.createModalView();
-			this.updateLabelVisibility();
 			this.updateListView();
+			this.updateActionBarTitle();
 
 			const context = this;
 			const callback = (sender: View, selectedIndex: number) => {
-				let context;
-				if (sender != undefined) {
-					context = sender.bindingContext;
-				}
-
 				if (selectedIndex != undefined) {
 					let object = this.getDataItem(selectedIndex);
-					let newText = object;
-					if (this.displayMember) {
-						newText = object[this.displayMember];
-					}
-					
-					this.text = newText;
+					this.selectedIndex = selectedIndex;
+					let value = this.getValueFromField("valueField", this.valueField, object);
+					this.selectedValue = value ? value : object;
+					let textValue = this.getValueFromField("textField", this.textField, object);
+					this.text = textValue ? textValue : object;
 				}
 			};
+			this._modalRoot.navigate(() => this._page);
 			this.showModal(this._modalRoot, context, callback, true, this.modalAnimated);
 		});
 	}
 
 	private createModalView() {
-		this._modalRoot = new GridLayout();
-		this._titleLabel = new Label();
+		this._modalRoot = new Frame();
+		this._page = new Page();
 		this._modalListView = new ListView();
-		this._closeButton = new Button();
+		this._modalGridLayout = new GridLayout();
 		this.initModalView();
+		this._page.content = this._modalGridLayout;
 	}
 
 	private initModalView() {
+		if (this.pickerTitle && this.pickerTitle !== "") {
+			this._page.actionBar.title = this.pickerTitle;
+		} else {
+			this._modalRoot.actionBarVisibility = "always";
+			this._page.actionBar.title = "";
+		}
+		let actionItem = new ActionItem();
+		actionItem.on(Button.tapEvent, (args: ItemEventData) => {
+			this.closeCallback(undefined, undefined);
+		});
+		if (actionItem.ios) {
+			actionItem.ios.systemIcon = 1;
+			actionItem.ios.position = "right";
+		}
+
+		if (actionItem.android) {
+			actionItem.android.systemIcon = "ic_menu_close_clear_cancel";
+		}
+
+		this._page.actionBar.actionItems.addItem(actionItem);
+
 		this._modalRoot.on(Page.shownModallyEvent, (args: ShownModallyData) => {
 			const context = args.context;
 			this.closeCallback = args.closeCallback;
 			const page: Page = <Page>args.object;
 			page.bindingContext = fromObject(context);
 		});
-
-		this._modalRoot.addRow(new ItemSpec(0, GridUnitType.AUTO));
-		this._modalRoot.addRow(new ItemSpec(1, GridUnitType.STAR));
-		this._modalRoot.addColumn(new ItemSpec(0, GridUnitType.AUTO));
-		this._modalRoot.addColumn(new ItemSpec(1, GridUnitType.STAR));
-
-		this._titleLabel.visibility = "collapse";
-		GridLayout.setRow(this._titleLabel, 0);
-		GridLayout.setColumn(this._titleLabel, 0);
-		this._modalRoot.addChild(this._titleLabel);
-
-		this._closeButton.text = "close";
-		this._closeButton.backgroundColor = "white";
-		this._closeButton.on(Button.tapEvent, (args: ItemEventData) => {
-			this.closeCallback(undefined, undefined);
-		});
-		GridLayout.setRow(this._closeButton, 0);
-		GridLayout.setColumn(this._closeButton, 1);
-		this._modalRoot.addChild(this._closeButton);
 
 		this._modalListView.separatorColor = new Color("transparent");
 		this._modalListView.items = this.items;
@@ -114,7 +113,20 @@ export class PickerTextField extends TextField {
 		GridLayout.setColumn(this._modalListView, 0);
 		GridLayout.setColumnSpan(this._modalListView, 2);
 
-		this._modalRoot.addChild(this._modalListView);
+		(<any>this._modalGridLayout).addChild(this._modalListView);
+	}
+
+	private getValueFromField(manipulatedProperty: string, propertyName: string, object: any): string {
+		if (!propertyName) {
+			return undefined;
+		}
+
+		if (object.hasOwnProperty(propertyName)) {
+			return object[propertyName];
+		}
+
+		console.log(`Warning: Cannot update the '${manipulatedProperty}' property of PickerTextField. The '${propertyName}' property not found on the objects in the 'items' collection.`);
+		return undefined;
 	}
 
 	public static modalAnimatedProperty = new Property<PickerTextField, boolean>(
@@ -127,14 +139,21 @@ export class PickerTextField extends TextField {
 			},
 		});
 
-	public static displayMemberProperty = new Property<PickerTextField, string>(
+	public static textFieldProperty = new Property<PickerTextField, string>(
 		{
-			name: "displayMember",
+			name: "textField",
 			valueChanged: (target, oldValue, newValue) => {
-				target.onDisplayMemberPropertyChanged(oldValue, newValue);
+				target.onTextFieldPropertyChanged(oldValue, newValue);
 			},
 		});
 
+	public static closeButtonTextProperty = new Property<PickerTextField, string>(
+		{
+			name: "closeButtonText",
+			valueChanged: (target, oldValue, newValue) => {
+				target.onCloseButtonTextPropertyChanged(oldValue, newValue);
+			},
+		});
 
 	public static pickerTitleProperty = new Property<PickerTextField, string>(
 		{
@@ -190,9 +209,12 @@ export class PickerTextField extends TextField {
 		}
 	}
 
-	
-	private onDisplayMemberPropertyChanged(oldValue: string, newValue: string) {
-		this.onDisplayMemberChanged(oldValue, newValue);
+	private onTextFieldPropertyChanged(oldValue: string, newValue: string) {
+		this.onTextFieldChanged(oldValue, newValue);
+	}
+
+	private onCloseButtonTextPropertyChanged(oldValue: string, newValue: string) {
+		this.onCloseButtonTextChanged(oldValue, newValue);
 	}
 
 	private onModalAnimatedPropertyChanged(oldValue: boolean, newValue: boolean) {
@@ -216,20 +238,6 @@ export class PickerTextField extends TextField {
 		return thisItems.getItem ? thisItems.getItem(index) : thisItems[index];
 	}
 
-	private updateLabelVisibility() {
-		if (this._titleLabel) {
-			if (this._titleLabel) {
-				this._titleLabel.text = this.pickerTitle;
-			}
-
-			if (this.pickerTitle != undefined || this.pickerTitle !== "") {
-				this._titleLabel.visibility = "visible";
-			} else {
-				this._titleLabel.visibility = "collapse";
-			}
-		}
-	}
-
 	private updateListView() {
 		if (this._modalListView && this.itemTemplate) {
 			this._modalListView.itemTemplate = this.itemTemplate;
@@ -237,14 +245,27 @@ export class PickerTextField extends TextField {
 		}
 	}
 
+	private updateActionBarTitle() {
+		if (this._page && this._page.actionBar) {
+			if (this.pickerTitle && this.pickerTitle !== "") {
+				this._page.actionBar.title = this.pickerTitle;
+			} else {
+				this._modalRoot.actionBarVisibility = "always";
+				this._page.actionBar.title = "";
+			}
+		}
+	}
+
 	protected onValuesChanged(oldValue: any, newValue: any) { }
 
 	protected onModalAnimatedChanged(oldValue: boolean, newValue: boolean) { }
 
-	protected onDisplayMemberChanged(oldValue: string, newValue: string) { }
+	protected onTextFieldChanged(oldValue: string, newValue: string) { }
+
+	protected onCloseButtonTextChanged(oldValue: string, newValue: string) { }
 
 	protected onPickerTitleChanged(oldValue: string, newValue: string) {
-		this.updateLabelVisibility();
+		this.updateActionBarTitle();
 	}
 
 	protected onItemTemplateChanged(oldValue: string | Template, newValue: string | Template) {
@@ -264,4 +285,5 @@ PickerTextField.pickerTitleProperty.register(PickerTextField);
 PickerTextField.itemTemplateProperty.register(PickerTextField);
 PickerTextField.editableProperty.register(PickerTextField);
 PickerTextField.itemsProperty.register(PickerTextField);
-PickerTextField.displayMemberProperty.register(PickerTextField);
+PickerTextField.textFieldProperty.register(PickerTextField);
+PickerTextField.closeButtonTextProperty.register(PickerTextField);
