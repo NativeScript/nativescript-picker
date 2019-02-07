@@ -29,6 +29,11 @@ Describe any usage specifics for your plugin. Give examples for Android, iOS, An
     Usage code snippets here
     ```)
 
+## Styling
+
+### PickerTextField
+The `PickerTextField` inherits from the `TextField` class of the `tns-core-modules/ui/text-field/text-field` module which means all of the available styling of `TextField` are available directly. Additionally the `PickerTextField` opens a modal window contains a `ListView` instance which inherits the css class of the `PickerTextField` meaning you can style that ListView elements with the use of `ListView.<your-class-name>` and simply set the `class` of the `PickerTextField` to `your-class-name`. For full list of the available properties of which many can be styling/set via css you can refer the official API documentation of ListView (here)[https://docs.nativescript.org/api-reference/modules/_ui_list_view_].
+
 ## API
 
 Describe your plugin methods and properties here. See [nativescript-feedback](https://github.com/EddyVerbruggen/nativescript-feedback) for example.
