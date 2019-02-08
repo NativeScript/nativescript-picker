@@ -1,0 +1,19 @@
+<navigation:ExamplePage loaded="pageLoaded" xmlns:navigation="navigation/example-page"  xmlns="http://www.nativescript.org/tns.xsd" xmlns:picker="nativescript-picker">
+	<GridLayout rows="50, 50">
+		<picker:PickerTextField hint="Click here" padding="10" id="myPicker"
+								items="{{ pickerItems }}"
+								textField="description"
+								valueField="name"
+								pickerTitle="Select item from list">
+			<picker:PickerTextField.itemTemplate>
+				<GridLayout rows="auto, auto, auto" backgroundColor="lightBlue">
+					<Label text="{{ 'ID: ' +  id }}" class="item-template-label red-label" margin="20"/>
+					<Label text="{{ name }}" row="1" class="item-template-label green-label" />
+					<Label text="{{ description }}" row="2" class="item-template-label green-label" marginBottom="20" />
+				</GridLayout>
+			</picker:PickerTextField.itemTemplate>
+		</picker:PickerTextField>
+	
+		<Button tap="checkTap" text="Check picker value APIs" row="1" />
+	</GridLayout>
+</navigation:ExamplePage>
