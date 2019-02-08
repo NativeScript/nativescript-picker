@@ -56,9 +56,9 @@ export class PickerTextField extends TextField {
 					let object = this.getDataItem(selectedIndex);
 					this.selectedIndex = selectedIndex;
 					let value = this.getValueFromField("valueField", this.valueField, object);
-					this.selectedValue = value ? value : object;
+					this.selectedValue = value;
 					let textValue = this.getValueFromField("textField", this.textField, object);
-					this.text = textValue ? textValue : object;
+					this.text = textValue;
 				}
 			};
 			this._modalRoot.navigate(() => this._page);
@@ -104,7 +104,8 @@ export class PickerTextField extends TextField {
 			page.bindingContext = fromObject(context);
 		});
 
-		this._modalListView.separatorColor = new Color("transparent");
+		// this._modalListView.separatorColor = new Color("transparent");
+		this._modalListView.className = this.className;
 		this._modalListView.items = this.items;
 		this._modalListView.on(ListView.itemTapEvent, (args: ItemEventData) => {
 			this.closeCallback(args.view, args.index);
@@ -190,11 +191,11 @@ export class PickerTextField extends TextField {
 			}
 
 			if (oldValue instanceof Observable) {
-				removeWeakEventListener(oldValue, ObservableArray.changeEvent, target._onItemsChanged, target);
+				removeWeakEventListener(oldValue, ObservableArray.changeEvent, target.onItemsChanged, target);
 			}
 
 			if (newValue instanceof Observable) {
-				addWeakEventListener(newValue, ObservableArray.changeEvent, target._onItemsChanged, target);
+				addWeakEventListener(newValue, ObservableArray.changeEvent, target.onItemsChanged, target);
 			}
 
 			if (target && target._modalListView) {
@@ -203,7 +204,7 @@ export class PickerTextField extends TextField {
 		}
 	});
 
-	public _onItemsChanged(args: ChangedData<any>) {
+	public onItemsChanged(args: ChangedData<any>) {
 		if (this._modalListView) {
 			this._modalListView.refresh();
 		}
