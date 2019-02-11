@@ -6,6 +6,7 @@ export namespace knownTemplates {
 
 export class PickerTextField extends commonPicker.PickerTextField {
     initNativeView() {
+        super.initNativeView();
         this.nativeTextViewProtected.setFocusable(false);
         this.nativeTextViewProtected.setLongClickable(false);
     }

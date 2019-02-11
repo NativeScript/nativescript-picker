@@ -28,17 +28,15 @@
     color: red;
 }
 
-ListView.picker-field-range {
-    background-color: green;
-    separator-color: orange;
-}
-
 /* Styling css start */
 
 
 ListView.picker-field {
     background-color: green;
-    separator-color: orange;
+    margin-left: 20;
+    margin-right: 20;
+    margin-bottom: 20;
+    separator-color: red;
 }
 
 .picker-field {

@@ -1,6 +1,5 @@
 import { Observable } from 'tns-core-modules/data/observable';
 import { Property, Template, booleanConverter } from "tns-core-modules/ui/core/view/view";
-import { Label } from "tns-core-modules/ui/label/label";
 import { View } from "tns-core-modules/ui/core/view/view";
 import { TextField } from 'tns-core-modules/ui/text-field/text-field';
 import { Button } from 'tns-core-modules/ui/button/button';
@@ -12,7 +11,7 @@ import { fromObject } from "tns-core-modules/data/observable";
 import { ItemsSource } from ".";
 import { addWeakEventListener, removeWeakEventListener } from "tns-core-modules/ui/core/weak-event-listener";
 import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array/observable-array";
-import { GridLayout, GridUnitType, ItemSpec } from 'tns-core-modules/ui/layouts/grid-layout/grid-layout';
+import { GridLayout } from 'tns-core-modules/ui/layouts/grid-layout/grid-layout';
 import { ActionItem } from 'tns-core-modules/ui/action-bar/action-bar';
 import { Frame } from 'tns-core-modules/ui/frame/frame';
 
@@ -22,11 +21,7 @@ export namespace knownTemplates {
 
 export class PickerTextField extends TextField {
 
-	public values: any;
 	public pickerTitle: string;
-	public defaultSelectedIndex: number;
-	public maximumHeight: number;
-	public maximumWidth: number;
 	public items: any[] | ItemsSource;
 	public itemTemplate: string | Template;
 	public modalAnimated: boolean;
@@ -34,36 +29,24 @@ export class PickerTextField extends TextField {
 	public valueField: string;
 	public selectedValue: any;
 	public selectedIndex: number;
-	public closeButtonText: string;
-
-	public _modalListView: ListView;
-	public _modalRoot: Frame;
-	public _page: Page;
+	public iOSCloseButtonPosition: "left" | "right";
+	public iOSCloseButtonIcon: number;
+	public androidCloseButtonPosition: "actionBar" | "actionBarIfRoom" | "popup";
+	public androidCloseButtonIcon: string;
+	private _modalListView: ListView;
+	private _modalRoot: Frame;
+	private _page: Page;
 	private _modalGridLayout: GridLayout;
-
 	private closeCallback;
 
 	constructor() {
 		super();
-		this.on(Button.tapEvent, (args: GestureEventData) => {
-			this.createModalView();
-			this.updateListView();
-			this.updateActionBarTitle();
+		this.on(Button.tapEvent, this.tapHandler.bind(this));
+	}
 
-			const context = this;
-			const callback = (sender: View, selectedIndex: number) => {
-				if (selectedIndex != undefined) {
-					let object = this.getDataItem(selectedIndex);
-					this.selectedIndex = selectedIndex;
-					let value = this.getValueFromField("valueField", this.valueField, object);
-					this.selectedValue = value;
-					let textValue = this.getValueFromField("textField", this.textField, object);
-					this.text = textValue;
-				}
-			};
-			this._modalRoot.navigate(() => this._page);
-			this.showModal(this._modalRoot, context, callback, true, this.modalAnimated);
-		});
+	disposeNativeView() {
+		this.off(Button.tapEvent, this.tapHandler);
+		super.disposeNativeView();
 	}
 
 	private createModalView() {
@@ -75,6 +58,16 @@ export class PickerTextField extends TextField {
 		this._page.content = this._modalGridLayout;
 	}
 
+	private disposeModalView() {
+		if (this._modalRoot) {
+			this.detachModalViewHandlers();
+			this._modalRoot = undefined;
+			this._page = undefined;
+			this._modalListView = undefined;
+			this._modalGridLayout = undefined;
+		}
+	}
+
 	private initModalView() {
 		if (this.pickerTitle && this.pickerTitle !== "") {
 			this._page.actionBar.title = this.pickerTitle;
@@ -82,40 +75,75 @@ export class PickerTextField extends TextField {
 			this._modalRoot.actionBarVisibility = "always";
 			this._page.actionBar.title = "";
 		}
+
 		let actionItem = new ActionItem();
+		actionItem.text = "Close";
 		actionItem.on(Button.tapEvent, (args: ItemEventData) => {
 			this.closeCallback(undefined, undefined);
 		});
+
 		if (actionItem.ios) {
-			actionItem.ios.systemIcon = 1;
-			actionItem.ios.position = "right";
+			actionItem.ios.position = this.iOSCloseButtonPosition;
+			actionItem.ios.systemIcon = this.iOSCloseButtonIcon;
 		}
 
 		if (actionItem.android) {
-			actionItem.android.systemIcon = "ic_menu_close_clear_cancel";
+			actionItem.android.systemIcon = this.androidCloseButtonIcon;
+			actionItem.android.position = this.androidCloseButtonPosition;
 		}
 
 		this._page.actionBar.actionItems.addItem(actionItem);
 
-		this._modalRoot.on(Page.shownModallyEvent, (args: ShownModallyData) => {
-			const context = args.context;
-			this.closeCallback = args.closeCallback;
-			const page: Page = <Page>args.object;
-			page.bindingContext = fromObject(context);
-		});
+		this._modalRoot.on(Page.shownModallyEvent, this.shownModallyHandler.bind(this));
 
-		// this._modalListView.separatorColor = new Color("transparent");
 		this._modalListView.className = this.className;
 		this._modalListView.items = this.items;
-		this._modalListView.on(ListView.itemTapEvent, (args: ItemEventData) => {
-			this.closeCallback(args.view, args.index);
-		});
+		this._modalListView.on(ListView.itemTapEvent, this.listViewItemTapHandler.bind(this));
 		GridLayout.setRow(this._modalListView, 1);
 		GridLayout.setColumn(this._modalListView, 0);
 		GridLayout.setColumnSpan(this._modalListView, 2);
 
 		(<any>this._modalGridLayout).addChild(this._modalListView);
 	}
+
+	private detachModalViewHandlers() {
+		this._modalRoot.off(Page.shownModallyEvent, this.shownModallyHandler.bind(this));
+		this._modalListView.off(ListView.itemTapEvent, this.listViewItemTapHandler.bind(this));
+	}
+
+	private shownModallyHandler(args: ShownModallyData) {
+		const context = args.context;
+		this.closeCallback = args.closeCallback;
+		const page: Page = <Page>args.object;
+		page.bindingContext = fromObject(context);
+	}
+
+	private tapHandler(args: GestureEventData) {
+		this.createModalView();
+		this.updateListView();
+		this.updateActionBarTitle();
+
+		const context = this;
+		const callback = (sender: View, selectedIndex: number) => {
+			if (selectedIndex != undefined) {
+				let object = this.getDataItem(selectedIndex);
+				this.selectedIndex = selectedIndex;
+				let value = this.getValueFromField("valueField", this.valueField, object);
+				this.selectedValue = value === undefined ? object : value;
+				let textValue = this.getValueFromField("textField", this.textField, object);
+				textValue = textValue === undefined ? object : textValue;
+				this.text = textValue;
+			}
+
+			this.disposeModalView();
+		};
+		this._modalRoot.navigate(() => this._page);
+		this.showModal(this._modalRoot, context, callback, true, this.modalAnimated);
+	}
+
+	private listViewItemTapHandler(args: ItemEventData) {
+		this.closeCallback(args.view, args.index);
+	};
 
 	private getValueFromField(manipulatedProperty: string, propertyName: string, object: any): string {
 		if (!propertyName) {
@@ -148,11 +176,39 @@ export class PickerTextField extends TextField {
 			},
 		});
 
-	public static closeButtonTextProperty = new Property<PickerTextField, string>(
+	public static iOSCloseButtonPositionProperty = new Property<PickerTextField, "left" | "right">(
 		{
-			name: "closeButtonText",
+			name: "iOSCloseButtonPosition",
+			defaultValue: "right",
 			valueChanged: (target, oldValue, newValue) => {
-				target.onCloseButtonTextPropertyChanged(oldValue, newValue);
+				target.onIOSCloseButtonPositionPropertyChanged(oldValue, newValue);
+			},
+		});
+
+	public static iOSCloseButtonIconProperty = new Property<PickerTextField, number>(
+		{
+			name: "iOSCloseButtonIcon",
+			defaultValue: 1,
+			valueChanged: (target, oldValue, newValue) => {
+				target.onIOSCloseButtonIconPropertyChanged(oldValue, newValue);
+			},
+		});
+
+	public static androidCloseButtonPositionProperty = new Property<PickerTextField, "actionBar" | "actionBarIfRoom" | "popup">(
+		{
+			name: "androidCloseButtonPosition",
+			defaultValue: "actionBar",
+			valueChanged: (target, oldValue, newValue) => {
+				target.onAndroidCloseButtonPositionPropertyChanged(oldValue, newValue);
+			},
+		});
+
+	public static androidCloseButtonIconProperty = new Property<PickerTextField, string>(
+		{
+			name: "androidCloseButtonIcon",
+			defaultValue: "ic_menu_close_clear_cancel",
+			valueChanged: (target, oldValue, newValue) => {
+				target.onAndroidCloseButtonIconPropertyChanged(oldValue, newValue);
 			},
 		});
 
@@ -204,7 +260,7 @@ export class PickerTextField extends TextField {
 		}
 	});
 
-	public onItemsChanged(args: ChangedData<any>) {
+	private onItemsChanged(args: ChangedData<any>) {
 		if (this._modalListView) {
 			this._modalListView.refresh();
 		}
@@ -214,8 +270,20 @@ export class PickerTextField extends TextField {
 		this.onTextFieldChanged(oldValue, newValue);
 	}
 
-	private onCloseButtonTextPropertyChanged(oldValue: string, newValue: string) {
-		this.onCloseButtonTextChanged(oldValue, newValue);
+	private onIOSCloseButtonPositionPropertyChanged(oldValue: "left" | "right", newValue: "left" | "right") {
+		this.onIOSCloseButtonPositionChanged(oldValue, newValue);
+	}
+
+	private onIOSCloseButtonIconPropertyChanged(oldValue: number, newValue: number) {
+		this.onIOSCloseButtonIconChanged(oldValue, newValue);
+	}
+
+	private onAndroidCloseButtonPositionPropertyChanged(oldValue: "actionBar" | "actionBarIfRoom" | "popup", newValue: "actionBar" | "actionBarIfRoom" | "popup") {
+		this.onAndroidCloseButtonPositionChanged(oldValue, newValue);
+	}
+
+	private onAndroidCloseButtonIconPropertyChanged(oldValue: string, newValue: string) {
+		this.onAndroidCloseButtonIconChanged(oldValue, newValue);
 	}
 
 	private onModalAnimatedPropertyChanged(oldValue: boolean, newValue: boolean) {
@@ -257,13 +325,17 @@ export class PickerTextField extends TextField {
 		}
 	}
 
-	protected onValuesChanged(oldValue: any, newValue: any) { }
-
 	protected onModalAnimatedChanged(oldValue: boolean, newValue: boolean) { }
 
 	protected onTextFieldChanged(oldValue: string, newValue: string) { }
 
-	protected onCloseButtonTextChanged(oldValue: string, newValue: string) { }
+	protected onIOSCloseButtonPositionChanged(oldValue: "left" | "right", newValue: "left" | "right") { }
+
+	protected onIOSCloseButtonIconChanged(oldValue: number, newValue: number) { }
+
+	protected onAndroidCloseButtonPositionChanged(oldValue: "actionBar" | "actionBarIfRoom" | "popup", newValue: "actionBar" | "actionBarIfRoom" | "popup") { }
+
+	protected onAndroidCloseButtonIconChanged(oldValue: string, newValue: string) { }
 
 	protected onPickerTitleChanged(oldValue: string, newValue: string) {
 		this.updateActionBarTitle();
@@ -287,4 +359,7 @@ PickerTextField.itemTemplateProperty.register(PickerTextField);
 PickerTextField.editableProperty.register(PickerTextField);
 PickerTextField.itemsProperty.register(PickerTextField);
 PickerTextField.textFieldProperty.register(PickerTextField);
-PickerTextField.closeButtonTextProperty.register(PickerTextField);
+PickerTextField.iOSCloseButtonPositionProperty.register(PickerTextField);
+PickerTextField.iOSCloseButtonIconProperty.register(PickerTextField);
+PickerTextField.androidCloseButtonPositionProperty.register(PickerTextField);
+PickerTextField.androidCloseButtonIconProperty.register(PickerTextField);
