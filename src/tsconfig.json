@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
-        "declaration": true,
         "removeComments": true,
         "noLib": false,
         "emitDecoratorMetadata": true,
@@ -20,8 +19,16 @@
         "noImplicitUseStrict": false,
         "noFallthroughCasesInSwitch": true
     },
+    "angularCompilerOptions": {
+        "genDir": ".",
+        "skipMetadataEmit": false,
+        "skipTemplateCodegen": true,
+        "strictMetadataEmit": true
+    },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "platforms",
+        "hooks"
     ],
     "compileOnSave": false
 }

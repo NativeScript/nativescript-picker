@@ -12,7 +12,7 @@
 								androidCloseButtonIcon="ic_media_previous">
 			<picker:PickerTextField.itemTemplate>
 				<GridLayout columns="auto, *" rows="auto, *" backgroundColor="lightBlue">
-					<Label text="Statick text: " colSpan="2" class="item-template-top-label"></Label>
+					<Label text="Static text: " colSpan="2" class="item-template-top-label"></Label>
 					<Label text="{{ name }}" col="0" row="1" class="item-template-label red-label" marginBottom="20"/>
 					<Image src="{{ imageUrl }}" col="1" row="0" rowSpan="2" class="item-template-picture" />
 				</GridLayout>

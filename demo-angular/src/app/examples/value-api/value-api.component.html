@@ -1,0 +1,14 @@
+<ActionBar title="Styling" class="action-bar"></ActionBar>
+<GridLayout rows="50, 50">
+    <PickerTextField #myPicker hint="Click here" padding="10" id="myPicker" [items]="pickerItems" textField="description"
+        valueField="name" pickerTitle="Select item from list">
+        <ng-template let-item="item">
+            <GridLayout rows="auto, auto, auto" backgroundColor="lightBlue">
+                <Label [text]="item.id" class="item-template-label red-label" margin="20"></Label>
+                <Label [text]="item.name" row="1" class="item-template-label green-label"></Label>
+                <Label [text]="description" row="2" class="item-template-label green-label" marginBottom="20"></Label>
+            </GridLayout>
+        </ng-template>
+    </PickerTextField>
+    <Button (tap)="checkTap(args)" text="Check picker value APIs" row="1"></Button>
+</GridLayout>>

@@ -1,0 +1,11 @@
+<ActionBar title="PickerTextField - Angular" class="action-bar">
+</ActionBar>
+
+<GridLayout class="page">
+    <ListView [items]="items" class="list-group">
+        <ng-template let-item="item">
+            <Label [nsRouterLink]="[item.route]" [text]="item.title"
+                class="list-group-item"></Label>
+        </ng-template>
+    </ListView>
+</GridLayout>

@@ -1,0 +1,54 @@
+
+.itemStackLayout {
+    text-align: left;
+    vertical-align: center;
+    font-size: 16;
+    color:#404040;
+}
+
+.titleLabel {
+    margin: 16;
+    vertical-align: center;
+}
+
+.item-template-label {
+    margin-left: 20;
+}
+
+.item-template-top-label {
+    margin: 20;
+    font-weight: bold;    
+}
+
+.green-label {
+    color: green;
+}
+
+.red-label {
+    color: red;
+}
+
+/* Styling css start */
+
+
+ListView.picker-field {
+    background-color: green;
+    margin-left: 20;
+    margin-right: 20;
+    margin-bottom: 20;
+    separator-color: red;
+}
+
+.picker-field {
+    background-color: lightblue;
+    color: blue;
+}
+
+.item-template-picture {
+    height: 70;
+    width: 150;
+    margin: 20;
+    margin-left: 100;
+}
+
+/* Styling css end */

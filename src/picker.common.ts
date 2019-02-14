@@ -1,11 +1,11 @@
 import { Observable } from 'tns-core-modules/data/observable';
 import { Property, Template, booleanConverter } from "tns-core-modules/ui/core/view/view";
-import { View } from "tns-core-modules/ui/core/view/view";
+import { View, EventData } from "tns-core-modules/ui/core/view/view";
 import { TextField } from 'tns-core-modules/ui/text-field/text-field';
 import { Button } from 'tns-core-modules/ui/button/button';
 
 import { GestureEventData } from "tns-core-modules/ui/gestures";
-import { ListView, ItemEventData } from "tns-core-modules/ui/list-view/list-view";
+import { ListView, ItemEventData, TemplatedItemsView } from "tns-core-modules/ui/list-view/list-view";
 import { Page, ShownModallyData, Color } from 'tns-core-modules/ui/page';
 import { fromObject } from "tns-core-modules/data/observable";
 import { ItemsSource } from ".";
@@ -19,7 +19,14 @@ export namespace knownTemplates {
 	export let itemTemplate = "itemTemplate";
 }
 
-export class PickerTextField extends TextField {
+export interface PickerTextField {
+	on(eventNames: string, callback: (data: EventData) => void, thisArg?: any);
+	on(event: "itemLoading", callback: (args: ItemEventData) => void, thisArg?: any);
+}
+
+export class PickerTextField extends TextField implements TemplatedItemsView {
+
+	public static itemLoadingEvent = "itemLoading";
 
 	public pickerTitle: string;
 	public items: any[] | ItemsSource;
@@ -75,6 +82,7 @@ export class PickerTextField extends TextField {
 			this._modalRoot.actionBarVisibility = "always";
 			this._page.actionBar.title = "";
 		}
+		this._page.actionBar.className = this.className;
 
 		let actionItem = new ActionItem();
 		actionItem.text = "Close";
@@ -96,12 +104,10 @@ export class PickerTextField extends TextField {
 
 		this._modalRoot.on(Page.shownModallyEvent, this.shownModallyHandler.bind(this));
 
+		this._modalListView.on(ListView.itemLoadingEvent, this.listViewItemLoadingHandler.bind(this));
+		this._modalListView.on(ListView.itemTapEvent, this.listViewItemTapHandler.bind(this));
 		this._modalListView.className = this.className;
 		this._modalListView.items = this.items;
-		this._modalListView.on(ListView.itemTapEvent, this.listViewItemTapHandler.bind(this));
-		GridLayout.setRow(this._modalListView, 1);
-		GridLayout.setColumn(this._modalListView, 0);
-		GridLayout.setColumnSpan(this._modalListView, 2);
 
 		(<any>this._modalGridLayout).addChild(this._modalListView);
 	}
@@ -109,6 +115,7 @@ export class PickerTextField extends TextField {
 	private detachModalViewHandlers() {
 		this._modalRoot.off(Page.shownModallyEvent, this.shownModallyHandler.bind(this));
 		this._modalListView.off(ListView.itemTapEvent, this.listViewItemTapHandler.bind(this));
+		this._modalListView.off(ListView.itemLoadingEvent, this.listViewItemLoadingHandler.bind(this));
 	}
 
 	private shownModallyHandler(args: ShownModallyData) {
@@ -145,6 +152,10 @@ export class PickerTextField extends TextField {
 		this.closeCallback(args.view, args.index);
 	};
 
+	private listViewItemLoadingHandler(args: ItemEventData) {
+		return this.notify(args);
+	}
+
 	private getValueFromField(manipulatedProperty: string, propertyName: string, object: any): string {
 		if (!propertyName) {
 			return undefined;
@@ -163,107 +174,126 @@ export class PickerTextField extends TextField {
 			name: "modalAnimated",
 			defaultValue: true,
 			valueConverter: booleanConverter,
-			valueChanged: (target, oldValue, newValue) => {
-				target.onModalAnimatedPropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.modalAnimatedChanged
 		});
+
+	private static modalAnimatedChanged(target: PickerTextField, oldValue, newValue) {
+		target.onModalAnimatedPropertyChanged(oldValue, newValue);
+	}
 
 	public static textFieldProperty = new Property<PickerTextField, string>(
 		{
 			name: "textField",
-			valueChanged: (target, oldValue, newValue) => {
-				target.onTextFieldPropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.textFieldChanged
 		});
+
+	private static textFieldChanged(target: PickerTextField, oldValue, newValue) {
+		target.onTextFieldPropertyChanged(oldValue, newValue);
+	}
 
 	public static iOSCloseButtonPositionProperty = new Property<PickerTextField, "left" | "right">(
 		{
 			name: "iOSCloseButtonPosition",
 			defaultValue: "right",
-			valueChanged: (target, oldValue, newValue) => {
-				target.onIOSCloseButtonPositionPropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.iOSCloseButtonPositionChanged
 		});
+
+	private static iOSCloseButtonPositionChanged(target: PickerTextField, oldValue, newValue) {
+		target.onIOSCloseButtonPositionPropertyChanged(oldValue, newValue);
+	}
 
 	public static iOSCloseButtonIconProperty = new Property<PickerTextField, number>(
 		{
 			name: "iOSCloseButtonIcon",
 			defaultValue: 1,
-			valueChanged: (target, oldValue, newValue) => {
-				target.onIOSCloseButtonIconPropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.iOSCloseButtonIconChanged
 		});
+
+	private static iOSCloseButtonIconChanged(target: PickerTextField, oldValue, newValue) {
+		target.onIOSCloseButtonIconPropertyChanged(oldValue, newValue);
+	}
 
 	public static androidCloseButtonPositionProperty = new Property<PickerTextField, "actionBar" | "actionBarIfRoom" | "popup">(
 		{
 			name: "androidCloseButtonPosition",
 			defaultValue: "actionBar",
-			valueChanged: (target, oldValue, newValue) => {
-				target.onAndroidCloseButtonPositionPropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.androidCloseButtonPositionChanged
 		});
+
+	private static androidCloseButtonPositionChanged(target: PickerTextField, oldValue, newValue) {
+		target.onAndroidCloseButtonPositionPropertyChanged(oldValue, newValue);
+	}
 
 	public static androidCloseButtonIconProperty = new Property<PickerTextField, string>(
 		{
 			name: "androidCloseButtonIcon",
 			defaultValue: "ic_menu_close_clear_cancel",
-			valueChanged: (target, oldValue, newValue) => {
-				target.onAndroidCloseButtonIconPropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.androidCloseButtonIconChanged
 		});
+
+	private static androidCloseButtonIconChanged(target: PickerTextField, oldValue, newValue) {
+		target.onAndroidCloseButtonIconPropertyChanged(oldValue, newValue);
+	}
 
 	public static pickerTitleProperty = new Property<PickerTextField, string>(
 		{
 			name: "pickerTitle",
 			defaultValue: undefined,
-			valueChanged: (target, oldValue, newValue) => {
-				target.onPickerTitlePropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.pickerTitleChanged
 		});
+
+	private static pickerTitleChanged(target: PickerTextField, oldValue, newValue) {
+		target.onPickerTitlePropertyChanged(oldValue, newValue);
+	}
 
 	public static itemTemplateProperty = new Property<PickerTextField, string | Template>(
 		{
 			name: "itemTemplate",
 			defaultValue: undefined,
-			valueChanged: (target, oldValue, newValue) => {
-				target.onItemTemplatePropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.itemTemplateChanged
 		});
+
+	private static itemTemplateChanged(target: PickerTextField, oldValue, newValue) {
+		target.onItemTemplatePropertyChanged(oldValue, newValue);
+	}
 
 	public static editableProperty = new Property<PickerTextField, boolean>(
 		{
 			name: "editable",
 			defaultValue: false,
 			valueConverter: booleanConverter,
-			valueChanged: (target, oldValue, newValue) => {
-				target.onEditablePropertyChanged(oldValue, newValue);
-			},
+			valueChanged: PickerTextField.editableChanged
 		});
 
+	private static editableChanged(target: PickerTextField, oldValue, newValue) {
+		target.onEditablePropertyChanged(oldValue, newValue);
+	}
+
 	public static itemsProperty = new Property<PickerTextField, any[] | ItemsSource>({
-		name: "items", valueChanged: (target, oldValue, newValue) => {
-			if (target && target._modalListView) {
-				target._modalListView.items = newValue;
-			}
-
-			if (oldValue instanceof Observable) {
-				removeWeakEventListener(oldValue, ObservableArray.changeEvent, target.onItemsChanged, target);
-			}
-
-			if (newValue instanceof Observable) {
-				addWeakEventListener(newValue, ObservableArray.changeEvent, target.onItemsChanged, target);
-			}
-
-			if (target && target._modalListView) {
-				target._modalListView.refresh();
-			}
-		}
+		name: "items", 
+		valueChanged: PickerTextField.itemsChanged
 	});
 
-	private onItemsChanged(args: ChangedData<any>) {
-		if (this._modalListView) {
-			this._modalListView.refresh();
+	private static itemsChanged(target: PickerTextField, oldValue, newValue) {
+		if (target && target._modalListView) {
+			target._modalListView.items = newValue;
 		}
+
+		if (oldValue instanceof Observable) {
+			removeWeakEventListener(oldValue, ObservableArray.changeEvent, target.onItemsChanged, target);
+		}
+
+		if (newValue instanceof Observable) {
+			addWeakEventListener(newValue, ObservableArray.changeEvent, target.onItemsChanged, target);
+		}
+
+		if (target && target._modalListView) {
+			target._modalListView.refresh();
+		}
+	}
+
+	private onItemsChanged(args: ChangedData<any>) {
+		this.refresh();
 	}
 
 	private onTextFieldPropertyChanged(oldValue: string, newValue: string) {
@@ -322,6 +352,12 @@ export class PickerTextField extends TextField {
 				this._modalRoot.actionBarVisibility = "always";
 				this._page.actionBar.title = "";
 			}
+		}
+	}
+
+	public refresh() {
+		if (this._modalListView) {
+			this._modalListView.refresh();
 		}
 	}
 
