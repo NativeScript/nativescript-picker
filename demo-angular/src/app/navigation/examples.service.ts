@@ -9,7 +9,7 @@ export class ExamplesService {
     private items = new Array<ExampleItem>(
         { id: 1, title: "Getting Started", route: "getting-started-example" },
         { id: 1, title: "Styling", route: "styling-example" },
-        { id: 1, title: "APIs", route: "value-api-example" },
+        { id: 1, title: "Value APIs", route: "value-api-example" },
     );
 
     getExamples(): Array<ExampleItem> {

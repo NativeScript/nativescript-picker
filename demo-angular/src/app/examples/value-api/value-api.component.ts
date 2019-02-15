@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
-import { DataItemService } from "../services/data-item.service";
-import { DataItem } from "../services/data-item";
+import { RouterExtensions } from "nativescript-angular/router";
 import { PickerTextFieldComponent } from 'nativescript-picker/angular';
+import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
+import { DataItem } from "../services/data-item";
+import { DataItemService } from "../services/data-item.service";
 
 @Component({
     selector: "ns-value-api-example",
@@ -15,7 +16,7 @@ export class ValueAPIExampleComponent implements OnInit {
 
     @ViewChild("myPicker") myPicker: PickerTextFieldComponent;
 
-    constructor(private itemsService: DataItemService) {
+    constructor(private itemsService: DataItemService, private routerExtensions: RouterExtensions) {
         this.pickerItems = this.itemsService.getDataItems(20);
     }
 
@@ -30,5 +31,9 @@ export class ValueAPIExampleComponent implements OnInit {
             message: `text: ${this.myPicker.nativeElement.text}\n` + `selectedValue: ${this.myPicker.nativeElement.selectedValue}\n` + `selectedIndex: ${this.myPicker.nativeElement.selectedIndex}`,
             okButtonText: "OK"
         });
+    }
+
+    public goBack() {
+        this.routerExtensions.backToPreviousPage();
     }
 }

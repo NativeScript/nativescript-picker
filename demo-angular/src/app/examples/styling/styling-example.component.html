@@ -1,5 +1,7 @@
-<ActionBar title="Styling" class="action-bar"></ActionBar>
-<GridLayout rows="*, *" columns="*, *">
+<ActionBar title="Styling">
+    <NavigationButton android.systemIcon="ic_menu_back" text="Back" (tap)="goBack()"></NavigationButton>
+</ActionBar>
+<GridLayout rows="50, *">
     <PickerTextField row="0" col="0" hint="This is hint" padding="10" class="picker-field" textField="name"
         [items]="pickerItems" [pickerTitle]="pickerTitle" iOSCloseButtonIcon="14" iOSCloseButtonPosition="left"
         androidCloseButtonPosition="actionBar" androidCloseButtonIcon="ic_media_previous">

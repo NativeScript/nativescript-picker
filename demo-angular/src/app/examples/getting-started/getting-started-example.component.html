@@ -1,4 +1,6 @@
-<ActionBar title="Getting Started" class="action-bar"></ActionBar>
+<ActionBar title="Getting Started">
+    <NavigationButton android.systemIcon="ic_menu_back" text="Back" (tap)="goBack()"></NavigationButton>
+</ActionBar>
 <GridLayout rows="50, *">
     <PickerTextField hint="Click here" padding="10" [items]="pickerItems"></PickerTextField>
 </GridLayout>>

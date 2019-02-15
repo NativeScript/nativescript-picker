@@ -1,14 +1,13 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
-
+import { NativeScriptPickerModule } from "nativescript-picker/angular";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { NavigationComponent } from "./navigation/navigation.component";
-import { StylingExampleComponent } from "./examples/styling/styling-example.component";
 import { GettingStartedExampleComponent } from "./examples/getting-started/getting-started-example.component";
-import { ValueAPIExampleComponent } from "./examples/value-api/value-api.component";
-import { NativeScriptPickerModule } from "nativescript-picker/angular";
 import { DataItemService } from "./examples/services/data-item.service";
+import { StylingExampleComponent } from "./examples/styling/styling-example.component";
+import { ValueAPIExampleComponent } from "./examples/value-api/value-api.component";
+import { NavigationComponent } from "./navigation/navigation.component";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";

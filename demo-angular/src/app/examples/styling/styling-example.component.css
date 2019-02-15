@@ -1,4 +1,3 @@
-
 .itemStackLayout {
     text-align: left;
     vertical-align: center;
@@ -30,6 +29,13 @@
 
 /* Styling css start */
 
+PickerTextField > ListView {
+    background-color: green;
+    margin-left: 20;
+    margin-right: 20;
+    margin-bottom: 20;
+    separator-color: red;
+}
 
 ListView.picker-field {
     background-color: green;
@@ -37,6 +43,11 @@ ListView.picker-field {
     margin-right: 20;
     margin-bottom: 20;
     separator-color: red;
+}
+
+ActionBar.picker-field {
+    background-color:yellow;
+    color:black;
 }
 
 .picker-field {

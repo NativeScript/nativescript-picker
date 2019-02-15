@@ -1,17 +1,7 @@
-import {
-    ChangeDetectionStrategy,
-    ContentChild,
-    Component,
-    ElementRef,
-    forwardRef,
-    IterableDiffers,
-    TemplateRef,
-    ViewContainerRef,
-} from "@angular/core";
-import { PickerValueAccessor } from "./nativescript-picker.accessors";
-import { ItemContext } from "nativescript-angular/directives/templated-items-comp";
-import { PickerTextField } from "../picker";
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, IterableDiffers } from "@angular/core";
 import { TemplatedItemsComponent, TEMPLATED_ITEMS_COMPONENT } from "nativescript-angular/directives/templated-items-comp";
+import { PickerTextField } from "../picker";
+import { PickerValueAccessor } from "./nativescript-picker.accessors";
 
 @Component({
     selector: "PickerTextField",

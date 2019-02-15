@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
-
-import { NavigationComponent } from "./navigation/navigation.component";
-import { StylingExampleComponent } from "./examples/styling/styling-example.component";
+import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { GettingStartedExampleComponent } from "./examples/getting-started/getting-started-example.component";
+import { StylingExampleComponent } from "./examples/styling/styling-example.component";
 import { ValueAPIExampleComponent } from "./examples/value-api/value-api.component";
+import { NavigationComponent } from "./navigation/navigation.component";
+
 
 const routes: Routes = [
     { path: "", redirectTo: "/items", pathMatch: "full" },
