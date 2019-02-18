@@ -25,7 +25,7 @@ const PICKER_VALUE_ACCESSOR = {
         "picker-text-field[ngModel],picker-text-field[formControlName],picker-text-field[formControl]",
     providers: [PICKER_VALUE_ACCESSOR],
     host: {
-        "(dateChange)": "onChange($event.value)",
+        "(selectedValueChange)": "onChange($event.value)",
     },
 })
 export class PickerValueAccessor extends BaseValueAccessor<PickerTextField> {
@@ -34,7 +34,6 @@ export class PickerValueAccessor extends BaseValueAccessor<PickerTextField> {
     }
 
     writeValue(value: any): void {
-        // TODO see how if parsing hte object is required
         const normalized = super.normalizeValue(value);
         this.view.selectedValue = normalized;
     }
