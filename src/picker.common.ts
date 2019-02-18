@@ -124,12 +124,11 @@ export class PickerTextField extends TextField implements TemplatedItemsView {
             this._modalListView[vueKey] = this[vueKey];
         }
 
-        if (view.className) {
-            this._modalListView.cssClasses.add(view.className);
-        }
-
         if (this.className) {
-            this._modalListView.cssClasses.add(this.className);
+            let classNames = this.className.split(' ');
+            classNames.forEach(element => {
+                this._modalListView.cssClasses.add(element);
+            });
         }
     }
 
