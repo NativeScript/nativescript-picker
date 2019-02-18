@@ -7,16 +7,13 @@ import { ExampleItem } from "./example-item";
 })
 export class ExamplesService {
     private items = new Array<ExampleItem>(
-        { id: 1, title: "Getting Started", route: "getting-started-example" },
-        { id: 1, title: "Styling", route: "styling-example" },
-        { id: 1, title: "Value APIs", route: "value-api-example" },
+        { title: "Getting Started", route: "getting-started-example" },
+        { title: "Styling", route: "styling-example" },
+        { title: "Value APIs", route: "value-api-example" },
+        { title: "Reactive forms", route: "reactive-forms-example" },
     );
 
     getExamples(): Array<ExampleItem> {
         return this.items;
-    }
-
-    getExample(id: number): ExampleItem {
-        return this.items.filter((item) => item.id === id)[0];
     }
 }
