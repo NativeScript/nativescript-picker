@@ -158,9 +158,6 @@ export class PickerTextField extends TextField implements TemplatedItemsView {
                 this.selectedIndex = selectedIndex;
                 let value = this.getValueFromField("valueField", this.valueField, object);
                 this.selectedValue = value === undefined ? object : value;
-                let textValue = this.getValueFromField("textField", this.textField, object);
-                textValue = textValue === undefined ? object : textValue;
-                this.text = textValue;
             }
 
             this.disposeModalView();
@@ -201,6 +198,27 @@ export class PickerTextField extends TextField implements TemplatedItemsView {
     private static modalAnimatedChanged(target: PickerTextField, oldValue, newValue) {
         target.onModalAnimatedPropertyChanged(oldValue, newValue);
     }
+
+    public static selectedValueProperty = new Property<PickerTextField, any>(
+        {
+            name: "selectedValue",
+            valueChanged: PickerTextField.selectedValueChanged
+        });
+
+    private static selectedValueChanged(target: PickerTextField, oldValue, newValue) {
+        target.onSelectedValuePropertyChanged(oldValue, newValue);
+    }
+
+    public static valueFieldProperty = new Property<PickerTextField, string>(
+        {
+            name: "valueField",
+            valueChanged: PickerTextField.valueFieldChanged
+        });
+
+    private static valueFieldChanged(target: PickerTextField, oldValue, newValue) {
+        target.onValueFieldPropertyChanged(oldValue, newValue);
+    }
+
 
     public static textFieldProperty = new Property<PickerTextField, string>(
         {
@@ -317,6 +335,14 @@ export class PickerTextField extends TextField implements TemplatedItemsView {
         this.refresh();
     }
 
+    private onSelectedValuePropertyChanged(oldValue: any, newValue: any) {
+        this.onSelectedValueChanged(oldValue, newValue);
+    }
+
+    private onValueFieldPropertyChanged(oldValue: string, newValue: string) {
+        this.onValueFieldChanged(oldValue, newValue);
+    }
+
     private onTextFieldPropertyChanged(oldValue: string, newValue: string) {
         this.onTextFieldChanged(oldValue, newValue);
     }
@@ -384,6 +410,14 @@ export class PickerTextField extends TextField implements TemplatedItemsView {
 
     protected onModalAnimatedChanged(oldValue: boolean, newValue: boolean) { }
 
+    protected onSelectedValueChanged(oldValue: any, newValue: any) {
+        let textValue = this.getValueFromField("textField", this.textField, newValue);
+        textValue = textValue === undefined ? newValue : textValue;
+        this.text = textValue;
+    }
+
+    protected onValueFieldChanged(oldValue: string, newValue: string) { }
+
     protected onTextFieldChanged(oldValue: string, newValue: string) { }
 
     protected onIOSCloseButtonPositionChanged(oldValue: "left" | "right", newValue: "left" | "right") { }
@@ -416,6 +450,8 @@ PickerTextField.itemTemplateProperty.register(PickerTextField);
 PickerTextField.editableProperty.register(PickerTextField);
 PickerTextField.itemsProperty.register(PickerTextField);
 PickerTextField.textFieldProperty.register(PickerTextField);
+PickerTextField.valueFieldProperty.register(PickerTextField);
+PickerTextField.selectedValueProperty.register(PickerTextField);
 PickerTextField.iOSCloseButtonPositionProperty.register(PickerTextField);
 PickerTextField.iOSCloseButtonIconProperty.register(PickerTextField);
 PickerTextField.androidCloseButtonPositionProperty.register(PickerTextField);
