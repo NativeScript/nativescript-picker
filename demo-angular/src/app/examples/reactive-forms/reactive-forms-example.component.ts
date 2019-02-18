@@ -24,13 +24,13 @@ export class ReactiveFormsExampleComponent implements OnInit {
             new Movie("One Flew Over the Cuckoo's Nest", 9, 1975, "https://m.media-amazon.com/images/M/MV5BZjA0OWVhOTAtYWQxNi00YzNhLWI4ZjYtNjFjZTEyYjJlNDVlL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg"),
             new Movie(" Lawrence of Arabia", 10, 1962, "https://m.media-amazon.com/images/M/MV5BYWY5ZjhjNGYtZmI2Ny00ODM0LWFkNzgtZmI1YzA2N2MxMzA0XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_UY268_CR2,0,182,268_AL_.jpg"),
         ]);
-        this.selectedMovie = new Movie("The Godfather", 1, 1972, "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY268_CR3,0,182,268_AL_.jpg");
+        this.selectedMovie = this.pickerItems.getItem(0);
     }
 
     ngOnInit(): void { }
 
     public movieForm: FormGroup = this.fb.group({
-        movie: ['test', Validators.required],
+        movie: [undefined, Validators.required],
     });
 
     public selectedMovie: Movie;

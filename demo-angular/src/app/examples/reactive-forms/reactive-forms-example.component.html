@@ -1,10 +1,10 @@
-<ActionBar title="Getting Started">
+<ActionBar title="Reactive Forms">
     <NavigationButton android.systemIcon="ic_menu_back" text="Back" (tap)="goBack()"></NavigationButton>
 </ActionBar>
-<GridLayout rows="50, 100" columns="*, *" [formGroup]="movieForm" class="yellow-grid">
+<GridLayout rows="100, *" columns="*, *" [formGroup]="movieForm" class="yellow-grid">
     <Label row="0" col="0" text="Pick a movie:" class="black-label label-center field-name-label"></Label>
     <PickerTextField row="0" col="1" formControlName="movie" [(ngModel)]="selectedMovie" hint="select a movie"
-        padding="10" pickerTitle="Pick a movie" class="picker-field" textField="name" [items]="pickerItems">
+        padding="10" pickerTitle="Pick a movie" class="picker-field" modalClass="myModal" textField="name" [items]="pickerItems">
         <ng-template let-item="item">
             <GridLayout rows="auto, *" columns="*, auto" class="yellow-grid">
                 <Label [text]="item.name" colSpan="2" class="black-label item-template-top-label"></Label>
@@ -13,9 +13,14 @@
             </GridLayout>
         </ng-template>
     </PickerTextField>
-    <Label row="1" col="0" text="ngModel.name: " class="black-label field-name-label"></Label>
-    <GridLayout row="1" col="1" rows="*, *">
-        <Label [text]="selectedMovie.name" class="result-label"></Label>
-        <Label [text]="selectedMovie.year" row="1" class="result-label"></Label>
+
+    <GridLayout row="1" col="0" colSpan="2" rows="auto, auto, auto, auto" columns="*, *" backgroundColor="white">
+        <Label row="0" col="0" colSpan="2" text="Result" class="black-label field-name-label" marginTop="20"></Label>
+        <Label row="1" col="0" text="ngModel.name: " class="black-label field-name-label"></Label>
+        <Label row="1" col="1" [text]="selectedMovie.name"></Label>
+        <Label row="2" col="0" text="ngModel.year: " class="black-label field-name-label"></Label>
+        <Label row="2" col="1" [text]="selectedMovie.year" ></Label>
+        <Label row="3" col="0" text="ngModel.imageUrl: " class="black-label field-name-label"></Label>
+        <Image row="3" col="1" [src]="selectedMovie.imageUrl" class="small-picture"></Image>
     </GridLayout>
 </GridLayout>>
