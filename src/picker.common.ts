@@ -117,17 +117,17 @@ export class PickerTextField extends TextField implements TemplatedItemsView {
         const ngKey = Object.keys(this).find(key => key.startsWith('_ngcontent'));
         const vueKey = Object.keys(this).find(key => key.startsWith('data-v'));
         if (ngKey) {
-            this._modalListView[ngKey] = this[ngKey];
+            view[ngKey] = this[ngKey];
         }
 
         if (vueKey) {
-            this._modalListView[vueKey] = this[vueKey];
+            view[vueKey] = this[vueKey];
         }
 
         if (this.className) {
             let classNames = this.className.split(' ');
             classNames.forEach(element => {
-                this._modalListView.cssClasses.add(element);
+                view.cssClasses.add(element);
             });
         }
     }
