@@ -30,7 +30,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
     public pickerTitle: string;
 
     /**
-     * Gets or sets the the source collection used to populate the {@link ListView} of the modal view.
+     * Gets or sets the source collection used to populate the {@link ListView} of the modal view.
      */
     public items: any[] | ItemsSource;
 
@@ -59,9 +59,9 @@ export class PickerField extends TextField implements TemplatedItemsView {
      */
     public selectedValue: any;
 
-     /**
-     * Gets the index of the object from the 'items' collection that has been selected from the list in the modal view.
-     */
+    /**
+    * Gets the index of the object from the 'items' collection that has been selected from the list in the modal view.
+    */
     public selectedIndex: number;
 
     /**
@@ -137,4 +137,14 @@ export class PickerField extends TextField implements TemplatedItemsView {
     * Identifies the {@link items} dependency property.
     */
     static itemsProperty: Property<PickerField, any[] | ItemsSource>;
+
+    /**
+    * Identifies the {@link valueField} dependency property.
+    */
+    static valueFieldProperty: Property<PickerField, string>;
+
+    /**
+       * Identifies the {@link selectedValue} dependency property.
+       */
+    static selectedValueProperty: Property<PickerField, any>;
 }
