@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
-import { PickerTextFieldComponent } from 'nativescript-picker/angular';
+import { PickerFieldComponent } from 'nativescript-picker/angular';
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
 import { DataItem } from "../services/data-item";
 import { DataItemService } from "../services/data-item.service";
@@ -14,7 +14,7 @@ import { DataItemService } from "../services/data-item.service";
 export class ValueAPIExampleComponent implements OnInit {
     public pickerItems: ObservableArray<DataItem>;
 
-    @ViewChild("myPicker") myPicker: PickerTextFieldComponent;
+    @ViewChild("myPicker") myPicker: PickerFieldComponent;
 
     constructor(private itemsService: DataItemService, private routerExtensions: RouterExtensions) {
         this.pickerItems = this.itemsService.getDataItems(20);
@@ -27,7 +27,7 @@ export class ValueAPIExampleComponent implements OnInit {
         console.log("selectedValue: ", this.myPicker.nativeElement.selectedValue);
         console.log("selectedIndex:", this.myPicker.nativeElement.selectedIndex);
         alert({
-            title: "PickerTextField available APIs:",
+            title: "PickerField available APIs:",
             message: `text: ${this.myPicker.nativeElement.text}\n` + `selectedValue: ${this.myPicker.nativeElement.selectedValue}\n` + `selectedIndex: ${this.myPicker.nativeElement.selectedIndex}`,
             okButtonText: "OK"
         });

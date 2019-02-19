@@ -3,7 +3,7 @@
 </ActionBar>
 <GridLayout rows="100, *" columns="*, *" [formGroup]="movieForm" class="yellow-grid">
     <Label row="0" col="0" text="Pick a movie:" class="black-label label-center field-name-label"></Label>
-    <PickerTextField row="0" col="1" formControlName="movie" [(ngModel)]="selectedMovie" hint="select a movie"
+    <PickerField row="0" col="1" formControlName="movie" [(ngModel)]="selectedMovie" hint="select a movie"
         padding="10" pickerTitle="Pick a movie" class="picker-field" modalClass="myModal" textField="name" [items]="pickerItems">
         <ng-template let-item="item">
             <GridLayout rows="auto, *" columns="*, auto" class="yellow-grid">
@@ -12,7 +12,7 @@
                 <Image [src]="item.imageUrl" col="1" row="0" rowSpan="2" class="item-template-picture"></Image>
             </GridLayout>
         </ng-template>
-    </PickerTextField>
+    </PickerField>
 
     <GridLayout row="1" col="0" colSpan="2" rows="auto, auto, auto, auto" columns="*, *" backgroundColor="white">
         <Label row="0" col="0" colSpan="2" text="Result" class="black-label field-name-label" marginTop="20"></Label>

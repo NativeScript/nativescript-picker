@@ -11,6 +11,7 @@ node_modules/
 *.log
 !*build-native.js
 src/**/*.d.ts
+!picker.d.ts
 !src/index.d.ts
 !src/references.d.ts
 !demo/karma.conf.js

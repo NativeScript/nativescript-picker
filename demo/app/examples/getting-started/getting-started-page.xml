@@ -1,7 +1,7 @@
 <navigation:ExamplePage loaded="pageLoaded" xmlns:navigation="navigation/example-page"  xmlns="http://www.nativescript.org/tns.xsd" xmlns:picker="nativescript-picker">
 	<GridLayout rows="50, *">
-		<picker:PickerTextField hint="Click here" padding="10"
+		<picker:PickerField hint="Click here" padding="10"
 								items="{{ pickerItems }}" >
-		</picker:PickerTextField>
+		</picker:PickerField>
 	</GridLayout>
 </navigation:ExamplePage>

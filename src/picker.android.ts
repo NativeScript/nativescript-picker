@@ -4,7 +4,7 @@ export namespace knownTemplates {
     export let itemTemplate = "itemTemplate";
 }
 
-export class PickerTextField extends commonPicker.PickerTextField {
+export class PickerField extends commonPicker.PickerField {
     initNativeView() {
         super.initNativeView();
         this.nativeTextViewProtected.setFocusable(false);

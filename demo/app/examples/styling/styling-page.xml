@@ -1,22 +1,22 @@
 <navigation:ExamplePage loaded="pageLoaded" xmlns:navigation="navigation/example-page"  xmlns="http://www.nativescript.org/tns.xsd" xmlns:picker="nativescript-picker">
 	<GridLayout rows="50, *">
-		<picker:PickerTextField hint="This is hint" 
+		<picker:PickerField hint="This is hint" 
 								padding="10"
 								class="picker-field"
 								textField="name"
 								items="{{ pickerItems }}"
 								pickerTitle="{{ pickerTitle }}"
-								iOSCloseButtonIcon="19"
+								iOSCloseButtonIcon="14"
 								iOSCloseButtonPosition="left"
 								androidCloseButtonPosition="actionBar"
 								androidCloseButtonIcon="ic_media_previous">
-			<picker:PickerTextField.itemTemplate>
+			<picker:PickerField.itemTemplate>
 				<GridLayout columns="auto, *" rows="auto, *" backgroundColor="lightBlue">
 					<Label text="Static text: " colSpan="2" class="item-template-top-label"></Label>
 					<Label text="{{ name }}" col="0" row="1" class="item-template-label red-label" marginBottom="20"/>
 					<Image src="{{ imageUrl }}" col="1" row="0" rowSpan="2" class="item-template-picture" />
 				</GridLayout>
-			</picker:PickerTextField.itemTemplate>
-		</picker:PickerTextField>
+			</picker:PickerField.itemTemplate>
+		</picker:PickerField>
 	</GridLayout>
 </navigation:ExamplePage>

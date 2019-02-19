@@ -2,7 +2,7 @@
     <NavigationButton android.systemIcon="ic_menu_back" text="Back" (tap)="goBack()"></NavigationButton>
 </ActionBar>
 <GridLayout rows="50, 50">
-    <PickerTextField #myPicker hint="Click here" padding="10" id="myPicker" [items]="pickerItems"
+    <PickerField #myPicker hint="Click here" padding="10" id="myPicker" [items]="pickerItems"
         textField="description" valueField="name" pickerTitle="Select item from list">
         <ng-template let-item="item">
             <GridLayout rows="auto, auto, auto" backgroundColor="lightBlue">
@@ -11,6 +11,6 @@
                 <Label [text]="description" row="2" class="item-template-label green-label" marginBottom="20"></Label>
             </GridLayout>
         </ng-template>
-    </PickerTextField>
+    </PickerField>
     <Button (tap)="checkTap(args)" text="Check picker value APIs" row="1"></Button>
 </GridLayout>>

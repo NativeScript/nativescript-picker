@@ -49,7 +49,7 @@ export class NavigationViewModel extends Observable {
 
     constructor() {
         super();
-        this.currentParent = new NavigationItem("PickerTextField - Demo", undefined, undefined);
+        this.currentParent = new NavigationItem("PickerField - Demo", undefined, undefined);
         this.buildComponentList();
         this.currentSubItems = this.currentParent.subItems;
         this.hasBackNavigation = false;

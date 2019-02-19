@@ -19,12 +19,12 @@ export namespace knownTemplates {
     export let itemTemplate = "itemTemplate";
 }
 
-export interface PickerTextField {
+export interface PickerField {
     on(eventNames: string, callback: (data: EventData) => void, thisArg?: any);
     on(event: "itemLoading", callback: (args: ItemEventData) => void, thisArg?: any);
 }
 
-export class PickerTextField extends TextField implements TemplatedItemsView {
+export class PickerField extends TextField implements TemplatedItemsView {
 
     public static itemLoadingEvent = "itemLoading";
 
@@ -182,137 +182,137 @@ export class PickerTextField extends TextField implements TemplatedItemsView {
             return object[propertyName];
         }
 
-        console.log(`Warning: Cannot update the '${manipulatedProperty}' property of PickerTextField. The '${propertyName}' property not found on the objects in the 'items' collection.`);
+        console.log(`Warning: Cannot update the '${manipulatedProperty}' property of PickerField. The '${propertyName}' property not found on the objects in the 'items' collection.`);
         return undefined;
     }
 
-    public static modalAnimatedProperty = new Property<PickerTextField, boolean>(
+    public static modalAnimatedProperty = new Property<PickerField, boolean>(
         {
             name: "modalAnimated",
             defaultValue: true,
             valueConverter: booleanConverter,
-            valueChanged: PickerTextField.modalAnimatedChanged
+            valueChanged: PickerField.modalAnimatedChanged
         });
 
-    private static modalAnimatedChanged(target: PickerTextField, oldValue, newValue) {
+    private static modalAnimatedChanged(target: PickerField, oldValue, newValue) {
         target.onModalAnimatedPropertyChanged(oldValue, newValue);
     }
 
-    public static selectedValueProperty = new Property<PickerTextField, any>(
+    public static selectedValueProperty = new Property<PickerField, any>(
         {
             name: "selectedValue",
-            valueChanged: PickerTextField.selectedValueChanged
+            valueChanged: PickerField.selectedValueChanged
         });
 
-    private static selectedValueChanged(target: PickerTextField, oldValue, newValue) {
+    private static selectedValueChanged(target: PickerField, oldValue, newValue) {
         target.onSelectedValuePropertyChanged(oldValue, newValue);
     }
 
-    public static valueFieldProperty = new Property<PickerTextField, string>(
+    public static valueFieldProperty = new Property<PickerField, string>(
         {
             name: "valueField",
-            valueChanged: PickerTextField.valueFieldChanged
+            valueChanged: PickerField.valueFieldChanged
         });
 
-    private static valueFieldChanged(target: PickerTextField, oldValue, newValue) {
+    private static valueFieldChanged(target: PickerField, oldValue, newValue) {
         target.onValueFieldPropertyChanged(oldValue, newValue);
     }
 
 
-    public static textFieldProperty = new Property<PickerTextField, string>(
+    public static textFieldProperty = new Property<PickerField, string>(
         {
             name: "textField",
-            valueChanged: PickerTextField.textFieldChanged
+            valueChanged: PickerField.textFieldChanged
         });
 
-    private static textFieldChanged(target: PickerTextField, oldValue, newValue) {
+    private static textFieldChanged(target: PickerField, oldValue, newValue) {
         target.onTextFieldPropertyChanged(oldValue, newValue);
     }
 
-    public static iOSCloseButtonPositionProperty = new Property<PickerTextField, "left" | "right">(
+    public static iOSCloseButtonPositionProperty = new Property<PickerField, "left" | "right">(
         {
             name: "iOSCloseButtonPosition",
             defaultValue: "right",
-            valueChanged: PickerTextField.iOSCloseButtonPositionChanged
+            valueChanged: PickerField.iOSCloseButtonPositionChanged
         });
 
-    private static iOSCloseButtonPositionChanged(target: PickerTextField, oldValue, newValue) {
+    private static iOSCloseButtonPositionChanged(target: PickerField, oldValue, newValue) {
         target.onIOSCloseButtonPositionPropertyChanged(oldValue, newValue);
     }
 
-    public static iOSCloseButtonIconProperty = new Property<PickerTextField, number>(
+    public static iOSCloseButtonIconProperty = new Property<PickerField, number>(
         {
             name: "iOSCloseButtonIcon",
             defaultValue: 1,
-            valueChanged: PickerTextField.iOSCloseButtonIconChanged
+            valueChanged: PickerField.iOSCloseButtonIconChanged
         });
 
-    private static iOSCloseButtonIconChanged(target: PickerTextField, oldValue, newValue) {
+    private static iOSCloseButtonIconChanged(target: PickerField, oldValue, newValue) {
         target.onIOSCloseButtonIconPropertyChanged(oldValue, newValue);
     }
 
-    public static androidCloseButtonPositionProperty = new Property<PickerTextField, "actionBar" | "actionBarIfRoom" | "popup">(
+    public static androidCloseButtonPositionProperty = new Property<PickerField, "actionBar" | "actionBarIfRoom" | "popup">(
         {
             name: "androidCloseButtonPosition",
             defaultValue: "actionBar",
-            valueChanged: PickerTextField.androidCloseButtonPositionChanged
+            valueChanged: PickerField.androidCloseButtonPositionChanged
         });
 
-    private static androidCloseButtonPositionChanged(target: PickerTextField, oldValue, newValue) {
+    private static androidCloseButtonPositionChanged(target: PickerField, oldValue, newValue) {
         target.onAndroidCloseButtonPositionPropertyChanged(oldValue, newValue);
     }
 
-    public static androidCloseButtonIconProperty = new Property<PickerTextField, string>(
+    public static androidCloseButtonIconProperty = new Property<PickerField, string>(
         {
             name: "androidCloseButtonIcon",
             defaultValue: "ic_menu_close_clear_cancel",
-            valueChanged: PickerTextField.androidCloseButtonIconChanged
+            valueChanged: PickerField.androidCloseButtonIconChanged
         });
 
-    private static androidCloseButtonIconChanged(target: PickerTextField, oldValue, newValue) {
+    private static androidCloseButtonIconChanged(target: PickerField, oldValue, newValue) {
         target.onAndroidCloseButtonIconPropertyChanged(oldValue, newValue);
     }
 
-    public static pickerTitleProperty = new Property<PickerTextField, string>(
+    public static pickerTitleProperty = new Property<PickerField, string>(
         {
             name: "pickerTitle",
             defaultValue: undefined,
-            valueChanged: PickerTextField.pickerTitleChanged
+            valueChanged: PickerField.pickerTitleChanged
         });
 
-    private static pickerTitleChanged(target: PickerTextField, oldValue, newValue) {
+    private static pickerTitleChanged(target: PickerField, oldValue, newValue) {
         target.onPickerTitlePropertyChanged(oldValue, newValue);
     }
 
-    public static itemTemplateProperty = new Property<PickerTextField, string | Template>(
+    public static itemTemplateProperty = new Property<PickerField, string | Template>(
         {
             name: "itemTemplate",
             defaultValue: undefined,
-            valueChanged: PickerTextField.itemTemplateChanged
+            valueChanged: PickerField.itemTemplateChanged
         });
 
-    private static itemTemplateChanged(target: PickerTextField, oldValue, newValue) {
+    private static itemTemplateChanged(target: PickerField, oldValue, newValue) {
         target.onItemTemplatePropertyChanged(oldValue, newValue);
     }
 
-    public static editableProperty = new Property<PickerTextField, boolean>(
+    public static editableProperty = new Property<PickerField, boolean>(
         {
             name: "editable",
             defaultValue: false,
             valueConverter: booleanConverter,
-            valueChanged: PickerTextField.editableChanged
+            valueChanged: PickerField.editableChanged
         });
 
-    private static editableChanged(target: PickerTextField, oldValue, newValue) {
+    private static editableChanged(target: PickerField, oldValue, newValue) {
         target.onEditablePropertyChanged(oldValue, newValue);
     }
 
-    public static itemsProperty = new Property<PickerTextField, any[] | ItemsSource>({
+    public static itemsProperty = new Property<PickerField, any[] | ItemsSource>({
         name: "items",
-        valueChanged: PickerTextField.itemsChanged
+        valueChanged: PickerField.itemsChanged
     });
 
-    private static itemsChanged(target: PickerTextField, oldValue, newValue) {
+    private static itemsChanged(target: PickerField, oldValue, newValue) {
         if (target && target._modalListView) {
             target._modalListView.items = newValue;
         }
@@ -437,21 +437,21 @@ export class PickerTextField extends TextField implements TemplatedItemsView {
 
     protected onEditableChanged(oldValue: boolean, newValue: boolean) {
         if (newValue) {
-            console.log("PickerTextField does not support 'editable = true'");
+            console.log("PickerField does not support 'editable = true'");
         }
         this.editable = false;
     }
 }
 
-PickerTextField.modalAnimatedProperty.register(PickerTextField);
-PickerTextField.pickerTitleProperty.register(PickerTextField);
-PickerTextField.itemTemplateProperty.register(PickerTextField);
-PickerTextField.editableProperty.register(PickerTextField);
-PickerTextField.itemsProperty.register(PickerTextField);
-PickerTextField.textFieldProperty.register(PickerTextField);
-PickerTextField.valueFieldProperty.register(PickerTextField);
-PickerTextField.selectedValueProperty.register(PickerTextField);
-PickerTextField.iOSCloseButtonPositionProperty.register(PickerTextField);
-PickerTextField.iOSCloseButtonIconProperty.register(PickerTextField);
-PickerTextField.androidCloseButtonPositionProperty.register(PickerTextField);
-PickerTextField.androidCloseButtonIconProperty.register(PickerTextField);
+PickerField.modalAnimatedProperty.register(PickerField);
+PickerField.pickerTitleProperty.register(PickerField);
+PickerField.itemTemplateProperty.register(PickerField);
+PickerField.editableProperty.register(PickerField);
+PickerField.itemsProperty.register(PickerField);
+PickerField.textFieldProperty.register(PickerField);
+PickerField.valueFieldProperty.register(PickerField);
+PickerField.selectedValueProperty.register(PickerField);
+PickerField.iOSCloseButtonPositionProperty.register(PickerField);
+PickerField.iOSCloseButtonIconProperty.register(PickerField);
+PickerField.androidCloseButtonPositionProperty.register(PickerField);
+PickerField.androidCloseButtonIconProperty.register(PickerField);

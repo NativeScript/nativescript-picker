@@ -1,7 +1,7 @@
 import { Directive, ElementRef, forwardRef } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { BaseValueAccessor } from "nativescript-angular/forms/value-accessors";
-import { PickerTextField } from "../picker";
+import { PickerField } from "../picker";
 
 const PICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -15,20 +15,20 @@ const PICKER_VALUE_ACCESSOR = {
  *
  *  ### Example
  *  ```
- *  <PickerTextField [(ngModel)]="model.test">
+ *  <PickerField [(ngModel)]="model.test">
  *  ```
  */
 @Directive({
-    selector: "PickerTextField[ngModel],PickerTextField[formControlName],PickerTextField[formControl]," +
-        "pickerTextField[ngModel],pickerTextField[formControlName],pickerTextField[formControl]," +
-        "pickerTextField[ngModel],pickerTextField[formControlName],pickerTextField[formControl]," +
+    selector: "PickerField[ngModel],PickerField[formControlName],PickerField[formControl]," +
+        "PickerField[ngModel],PickerField[formControlName],PickerField[formControl]," +
+        "PickerField[ngModel],PickerField[formControlName],PickerField[formControl]," +
         "picker-text-field[ngModel],picker-text-field[formControlName],picker-text-field[formControl]",
     providers: [PICKER_VALUE_ACCESSOR],
     host: {
         "(selectedValueChange)": "onChange($event.value)",
     },
 })
-export class PickerValueAccessor extends BaseValueAccessor<PickerTextField> {
+export class PickerValueAccessor extends BaseValueAccessor<PickerField> {
     constructor(elementRef: ElementRef) {
         super(elementRef.nativeElement);
     }

@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { registerElement } from "nativescript-angular/element-registry";
 import { ModalDialogService } from "nativescript-angular/modal-dialog";
 import { DIRECTIVES } from "./nativescript-picker.directives";
-import { PickerTextField } from "../picker";
+import { PickerField } from "../picker";
 
 @NgModule({
     declarations: [DIRECTIVES],
@@ -13,4 +13,4 @@ import { PickerTextField } from "../picker";
 })
 export class NativeScriptPickerModule { }
 
-registerElement("PickerTextField", () => PickerTextField);
+registerElement("PickerField", () => PickerField);
