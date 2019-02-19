@@ -7,7 +7,7 @@
 [![Dependency status](https://david-dm.org/NativeScript/nativescript-picker.svg)](https://david-dm.org/NativeScript/nativescript-picker)
 [![peerDependencies Status](https://david-dm.org/NativeScript/nativescript-picker/peer-status.svg)](https://david-dm.org/NativeScript/nativescript-picker?type=peer)
 
-A NativeScript plugin that provides ui element for picking an object/value from a list opened in a modal popup. The plugin provides two fields - DatePickerField and TimePickerField - both are NativeScript Views that show selected date or time and allow picking another after being tapped. There is also a DateTimePicker class which provides static methods pickDate and pickTime that can be called to show the same dialog picker as the fields.
+A NativeScript plugin that provides ui element for picking an object/value from a list opened in a modal popup.
 
 - [Installation](#installation)
 - [Configuration](#configuration)

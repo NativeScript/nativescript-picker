@@ -25,7 +25,7 @@
         "demo.vue.ios": "npm i && npm run tsc && cd ../demo-vue && tns run ios --bundle --syncAllFiles --emulator",
         "demo.vue.android": "npm i && npm run tsc && cd ../demo-vue && tns run android --bundle --syncAllFiles --emulator",
         "demo.vue.reset": "cd ../demo-vue && npx rimraf -- hooks node_modules platforms package-lock.json",
-        "plugin.prepare": "npm run build && cd ../demo && tns plugin remove nativescript-datetimepicker && tns plugin add ../src",
+        "plugin.prepare": "npm run build && cd ../demo && tns plugin remove nativescript-picker && tns plugin add ../src",
         "clean": "npm run demo.reset && npx rimraf -- node_modules package-lock.json && npm i",
         "ci.tslint": "npm i && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**' --exclude '**/platforms/**'",
         "ngc": "ngc -p tsconfig.json",
