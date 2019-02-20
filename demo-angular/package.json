@@ -2,15 +2,13 @@
     "nativescript": {
         "id": "org.nativescript.demoangular",
         "tns-android": {
-            "version": "5.1.0"
+            "version": "5.2.0"
         },
         "tns-ios": {
-            "version": "5.1.1"
+            "version": "5.2.1"
         }
     },
     "description": "NativeScript Application",
-    "license": "SEE LICENSE IN <your-license-filename>",
-    "repository": "<fill-your-repository-here>",
     "dependencies": {
         "@angular/animations": "~7.2.0",
         "@angular/common": "~7.2.0",
@@ -22,7 +20,7 @@
         "@angular/platform-browser-dynamic": "~7.2.0",
         "@angular/router": "~7.2.0",
         "nativescript-angular": "~7.2.1",
-        "nativescript-datetimepicker": "file:../src",
+        "nativescript-picker": "file:../src",
         "nativescript-theme-core": "~1.0.4",
         "reflect-metadata": "~0.1.10",
         "rxjs": "~6.4.0",
