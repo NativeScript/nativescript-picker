@@ -2,21 +2,21 @@ import { Observable } from 'tns-core-modules/data/observable';
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 
 export class GettingStartedModel extends Observable {
-	public pickerItems: ObservableArray<string>;
+    public pickerItems: ObservableArray<string>;
 
-	constructor() {
-		super();
+    constructor() {
+        super();
 
-		this.pickerItems = this.getItems(100);
-	}
+        this.pickerItems = this.getItems(100);
+    }
 
-	private getItems(size: number) {
-		let array = new ObservableArray<string>();
-		
-		for(let i = 0; i < size; i++) {
-			array.push("Item " + i);
-		}
+    private getItems(size: number) {
+        let array = new ObservableArray<string>();
 
-		return array;
-	}
+        for (let i = 0; i < size; i++) {
+            array.push("Item " + i);
+        }
+
+        return array;
+    }
 }

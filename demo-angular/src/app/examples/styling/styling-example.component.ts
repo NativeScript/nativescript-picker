@@ -14,7 +14,7 @@ export class StylingExampleComponent implements OnInit {
     public pickerItems: ObservableArray<DataItem>;
     public pickerTitle = "Select item from list";
 
-    constructor(private itemsService: DataItemService, private routerExtensions: RouterExtensions) { 
+    constructor(private itemsService: DataItemService, private routerExtensions: RouterExtensions) {
         this.pickerItems = this.itemsService.getDataItems(10);
     }
 

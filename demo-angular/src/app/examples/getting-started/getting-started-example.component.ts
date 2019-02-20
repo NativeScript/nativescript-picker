@@ -12,7 +12,7 @@ import { DataItemService } from "../services/data-item.service";
 export class GettingStartedExampleComponent implements OnInit {
     public pickerItems: ObservableArray<string>;
 
-    constructor(private itemsService: DataItemService, private routerExtensions: RouterExtensions) { 
+    constructor(private itemsService: DataItemService, private routerExtensions: RouterExtensions) {
         this.pickerItems = this.itemsService.getStringItems(100);
     }
 

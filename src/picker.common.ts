@@ -152,7 +152,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
 
         const context = this;
         const callback = (sender: View, selectedIndex: number) => {
-            if (selectedIndex != undefined) {
+            if (selectedIndex !== undefined) {
                 let object = this.getDataItem(selectedIndex);
                 this.selectedIndex = selectedIndex;
                 let value = this.getValueFromField("valueField", this.valueField, object);
