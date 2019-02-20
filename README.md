@@ -1,4 +1,4 @@
-# nativescript-picker  ![apple](https://cdn3.iconfinder.com/data/icons/picons-social/57/16-apple-32.png) ![android](https://cdn4.iconfinder.com/data/icons/logos-3/228/android-32.png)
+# nativescript-picker
 
 
 [![Build Status](https://travis-ci.org/NativeScript/nativescript-picker.svg?branch=master)](https://travis-ci.org/NativeScript/nativescript-picker)
