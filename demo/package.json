@@ -1,6 +1,6 @@
 {
     "nativescript": {
-        "id": "org.nativescript.demo",
+        "id": "org.nativescript.picker.demo",
         "tns-ios": {
             "version": "5.2.0"
         },
