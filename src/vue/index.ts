@@ -1,17 +1,17 @@
 import { PickerField } from "../picker";
+import PickerComponent from './component';
 
-const Picker = {
-    install(Vue) {
+
+const PickerPlugin = {
+    install(Vue, options) {
         Vue.registerElement(
             'PickerField',
             () => PickerField,
             {
-                model: {
-                    prop: 'selectedValue',
-                    event: 'selectedValueChange'
-                }
+                component: PickerComponent,
             }
         );
     }
 };
-export default Picker;
+
+export default PickerPlugin;
