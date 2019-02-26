@@ -22,10 +22,12 @@
         }
     },
     "include": [
-        "index.ts"
+        "../src",
+        "**/*"
     ],
     "exclude": [
+        "../src/node_modules",
         "node_modules",
         "platforms"
-    ]
+    ],
 }

@@ -10,7 +10,8 @@
     },
     "description": "NativeScript PickerField Demo Vue",
     "scripts": {
-        "run": "tns run ios --syncAllFiles --provision NativeScriptDevProfile --bundle",
+        "run.ios": "tns run ios --syncAllFiles --provision NativeScriptDevProfile --bundle",
+        "run.android": "tns run android --syncAllFiles --provision NativeScriptDevProfile --bundle",
         "build.plugin": "cd ../src && npm run build",
         "ci.tslint": "npm i && tslint --config '../tslint.json' 'src/**/*.ts'"
     },
