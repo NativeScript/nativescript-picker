@@ -30,7 +30,6 @@
                   ref="apiPicker"
                   row="2"
                   padding="10"
-                  :pickerTitle="pickerTitle"
                   for="item in pickerObjects"
                   textField="description"
                   valueField="name"
