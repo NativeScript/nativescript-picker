@@ -8,12 +8,16 @@ import { GestureEventData } from "tns-core-modules/ui/gestures";
 import { ListView, ItemEventData, TemplatedItemsView } from "tns-core-modules/ui/list-view/list-view";
 import { Page, ShownModallyData, Color } from 'tns-core-modules/ui/page';
 import { fromObject } from "tns-core-modules/data/observable";
-import { ItemsSource } from ".";
 import { addWeakEventListener, removeWeakEventListener } from "tns-core-modules/ui/core/weak-event-listener";
 import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array/observable-array";
 import { GridLayout } from 'tns-core-modules/ui/layouts/grid-layout/grid-layout';
 import { ActionItem } from 'tns-core-modules/ui/action-bar/action-bar';
 import { Frame } from 'tns-core-modules/ui/frame/frame';
+
+export interface ItemsSource {
+    length: number;
+    getItem(index: number): any;
+}
 
 export namespace knownTemplates {
     export let itemTemplate = "itemTemplate";

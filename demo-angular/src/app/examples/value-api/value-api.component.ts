@@ -22,7 +22,7 @@ export class ValueAPIExampleComponent implements OnInit {
 
     ngOnInit(): void { }
 
-    public checkTap(args) {
+    public checkTap() {
         console.log("text: ", this.myPicker.nativeElement.text);
         console.log("selectedValue: ", this.myPicker.nativeElement.selectedValue);
         console.log("selectedIndex:", this.myPicker.nativeElement.selectedIndex);
