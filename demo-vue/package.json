@@ -9,8 +9,11 @@
         }
     },
     "description": "NativeScript PickerField Demo Vue",
-    "license": "SEE LICENSE IN LICENSE FILE",
-    "repository": "https://github.com/NativeScript/nativescript-picker",
+    "scripts": {
+        "run": "tns run ios --syncAllFiles --provision NativeScriptDevProfile --bundle",
+        "build.plugin": "cd ../src && npm run build",
+        "ci.tslint": "npm i && tslint --config '../tslint.json' 'src/**/*.ts'"
+    },
     "dependencies": {
         "nativescript-picker": "file:../src",
         "nativescript-theme-core": "~1.0.4",
@@ -26,9 +29,6 @@
         "nativescript-vue-template-compiler": "~2.0.2",
         "node-sass": "~4.9.0",
         "vue-loader": "~15.4.0"
-    },
-    "scripts": {
-        "run": "tns run ios --syncAllFiles --provision NativeScriptDevProfile --bundle"
     },
     "readme": "NativeScript PickerField Demo Vue"
 }
