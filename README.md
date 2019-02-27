@@ -47,7 +47,6 @@ import { NativeScriptPickerModule } from "nativescript-picker/angular";
 ...
 @NgModule({
     imports: [
-        NativeScriptCommonModule,
         NativeScriptPickerModule,
         ...
     ],
