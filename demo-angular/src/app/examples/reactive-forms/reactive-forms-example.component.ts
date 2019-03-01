@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
+import { PickerFieldComponent } from "nativescript-picker/angular";
 
 @Component({
     selector: "ns-reactive-forms-example",
@@ -11,6 +12,7 @@ import { ObservableArray } from "tns-core-modules/data/observable-array/observab
 })
 export class ReactiveFormsExampleComponent implements OnInit {
     public pickerItems: ObservableArray<Movie>;
+    @ViewChild("picker") pickerComp: PickerFieldComponent;
 
     constructor(private routerExtensions: RouterExtensions, private fb: FormBuilder) {
         this.pickerItems = new ObservableArray([
@@ -24,19 +26,30 @@ export class ReactiveFormsExampleComponent implements OnInit {
             new Movie("One Flew Over the Cuckoo's Nest", 9, 1975, "https://m.media-amazon.com/images/M/MV5BZjA0OWVhOTAtYWQxNi00YzNhLWI4ZjYtNjFjZTEyYjJlNDVlL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg"),
             new Movie(" Lawrence of Arabia", 10, 1962, "https://m.media-amazon.com/images/M/MV5BYWY5ZjhjNGYtZmI2Ny00ODM0LWFkNzgtZmI1YzA2N2MxMzA0XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_UY268_CR2,0,182,268_AL_.jpg"),
         ]);
-        this.selectedMovie = this.pickerItems.getItem(0);
+
+        this.movieForm = new FormGroup({
+            movie: new FormControl(this.pickerItems.getItem(0).year, Validators.required),
+        });
     }
 
     ngOnInit(): void { }
 
-    public movieForm: FormGroup = this.fb.group({
-        movie: [undefined, Validators.required],
-    });
+    public movieForm: FormGroup;
 
-    public selectedMovie: Movie;
-
-    public goBack() {
+Í;    public goBack() {
         this.routerExtensions.backToPreviousPage();
+    }
+
+    public onSubmit() {
+        let formMovieValue = this.movieForm.get("movie").value;
+        let selectedValue = this.pickerComp.nativeElement.selectedValue;
+        console.log("picker selected value: ", selectedValue);
+        console.log("Forms 'movie' value: ", formMovieValue);
+        alert({
+            title: "Forms 'movie' value:",
+            message: `Forms 'movie' value:  ${formMovieValue}`,
+            okButtonText: "OK"
+        });
     }
 }
 

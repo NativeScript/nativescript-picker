@@ -55,7 +55,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
     public valueField: string;
 
     /**
-     * Gets the object selected from the list in the modal view.
+     * Gets or sets the object selected from the list in the modal view.
      */
     public selectedValue: any;
 
@@ -85,8 +85,6 @@ export class PickerField extends TextField implements TemplatedItemsView {
     public androidCloseButtonIcon: string;
 
     refresh();
-
-    _openModalHandler(args): void;
 
     /**
     * Identifies the {@link modalAnimated} dependency property.

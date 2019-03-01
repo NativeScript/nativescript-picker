@@ -3,8 +3,8 @@
 </ActionBar>
 <GridLayout rows="100, *" columns="*, *" [formGroup]="movieForm" class="yellow-grid">
     <Label row="0" col="0" text="Pick a movie:" class="black-label label-center field-name-label"></Label>
-    <PickerField row="0" col="1" formControlName="movie" [(ngModel)]="selectedMovie" hint="select a movie"
-        padding="10" pickerTitle="Pick a movie" class="picker-field" modalClass="myModal" textField="name" [items]="pickerItems">
+    <PickerField #picker row="0" col="1" formControlName="movie" hint="select a movie" padding="10" pickerTitle="Pick a movie"
+        class="picker-field" modalClass="myModal" valueField="year" textField="name" [items]="pickerItems">
         <ng-template let-item="item">
             <GridLayout rows="auto, *" columns="*, auto" class="yellow-grid">
                 <Label [text]="item.name" colSpan="2" class="black-label item-template-top-label"></Label>
@@ -14,13 +14,7 @@
         </ng-template>
     </PickerField>
 
-    <GridLayout row="1" col="0" colSpan="2" rows="auto, auto, auto, auto" columns="*, *" backgroundColor="white">
-        <Label row="0" col="0" colSpan="2" text="Result" class="black-label field-name-label" marginTop="20"></Label>
-        <Label row="1" col="0" text="ngModel.name: " class="black-label field-name-label"></Label>
-        <Label row="1" col="1" [text]="selectedMovie.name"></Label>
-        <Label row="2" col="0" text="ngModel.year: " class="black-label field-name-label"></Label>
-        <Label row="2" col="1" [text]="selectedMovie.year" ></Label>
-        <Label row="3" col="0" text="ngModel.imageUrl: " class="black-label field-name-label"></Label>
-        <Image row="3" col="1" [src]="selectedMovie.imageUrl" class="small-picture"></Image>
+    <GridLayout row="1" col="0" colSpan="2" rows="auto, *" backgroundColor="white">
+        <Button class="submit-button" text="Submit form" (tap)="onSubmit()"></Button>
     </GridLayout>
 </GridLayout>>
