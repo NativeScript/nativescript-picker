@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
+import { PickerFieldComponent } from "nativescript-picker/angular";
 
 @Component({
     selector: "ns-reactive-forms-example",
@@ -11,6 +12,7 @@ import { ObservableArray } from "tns-core-modules/data/observable-array/observab
 })
 export class ReactiveFormsExampleComponent implements OnInit {
     public pickerItems: ObservableArray<Movie>;
+    @ViewChild("picker") pickerComp: PickerFieldComponent;
 
     constructor(private routerExtensions: RouterExtensions, private fb: FormBuilder) {
         this.pickerItems = new ObservableArray([
@@ -26,7 +28,7 @@ export class ReactiveFormsExampleComponent implements OnInit {
         ]);
 
         this.movieForm = new FormGroup({
-            movie: new FormControl(this.pickerItems.getItem(0).name, Validators.required),
+            movie: new FormControl(this.pickerItems.getItem(0).year, Validators.required),
         });
     }
 
@@ -40,10 +42,12 @@ export class ReactiveFormsExampleComponent implements OnInit {
 
     public onSubmit() {
         let formMovieValue = this.movieForm.get("movie").value;
+        let selectedValue = this.pickerComp.nativeElement.selectedValue;
+        console.log("picker selected value: ", selectedValue);
         console.log("Forms 'movie' value: ", formMovieValue);
         alert({
             title: "Forms 'movie' value:",
-            message: `id: ${formMovieValue.id}\n` + `name: ${formMovieValue.name}\n` + `year: ${formMovieValue.year}`,
+            message: `Forms 'movie' value:  ${formMovieValue}`,
             okButtonText: "OK"
         });
     }
