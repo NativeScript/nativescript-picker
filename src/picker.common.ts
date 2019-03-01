@@ -159,10 +159,8 @@ export class PickerField extends TextField implements TemplatedItemsView {
             if (selectedIndex !== undefined) {
                 let object = this.getDataItem(selectedIndex);
                 this.selectedIndex = selectedIndex;
-                let value = this.getValueFromField("selectedValue", this.valueField, object);
-                this.selectedValue = value === undefined ? object : value;
 
-                this.updatePickerText(object);
+                this._updateSelectedValue(object);
             }
 
             this.disposeModalView();
@@ -413,6 +411,11 @@ export class PickerField extends TextField implements TemplatedItemsView {
         }
     }
 
+    private _updateSelectedValue(object: any) {
+        let value = this.getValueFromField("selectedValue", this.valueField, object);
+        this.selectedValue = value === undefined ? object : value;
+    }
+
     private updatePickerText(object: any) {
         let textValue = this.getValueFromField("text", this.textField, object);
         textValue = textValue === undefined ? object : textValue;
@@ -422,7 +425,55 @@ export class PickerField extends TextField implements TemplatedItemsView {
     protected onModalAnimatedChanged(oldValue: boolean, newValue: boolean) { }
 
     protected onSelectedValueChanged(oldValue: any, newValue: any) {
-        this.text = newValue;
+        if (this.hasItem(newValue)) {
+            this.updatePickerText(newValue);
+            return;
+        }
+
+        let dataItem = this.getObjectFromValue(this.valueField, newValue);
+        if (dataItem) {
+            this.updatePickerText(dataItem);
+        } else {
+            this.text = newValue;
+        }
+    }
+
+    private getObjectFromValue(propertyName: string, value: any) {
+        if (!propertyName) {
+            return undefined;
+        }
+
+        if (this.items) {
+            for (let i = 0; i < this.items.length; i++) {
+                let item = this._getDataItem(i);
+                if (item.hasOwnProperty(propertyName)) {
+                    let dataItemValue = item[propertyName];
+                    if (dataItemValue === value) {
+                        return item;
+                    }
+                }
+            }
+        }
+
+        return undefined;
+    }
+
+    private hasItem(object: any) {
+        if (this.items) {
+            for (let i = 0; i < this.items.length; i++) {
+                let item = this._getDataItem(i);
+                if (item === object) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private _getDataItem(index: number): any {
+        let thisItems = <ItemsSource>this.items;
+        return thisItems.getItem ? thisItems.getItem(index) : thisItems[index];
     }
 
     protected onValueFieldChanged(oldValue: string, newValue: string) { }
