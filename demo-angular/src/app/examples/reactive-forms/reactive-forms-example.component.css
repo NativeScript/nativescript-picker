@@ -22,20 +22,8 @@
     margin-left: 100;
 }
 
-.small-picture {
-    height: 70;
-    margin: 20;
-}
-
 .yellow-grid {
     background-color: #F5C518;
-}
-
-.result-label {
-    background-color: gray;
-    color: white;
-    padding: 10;
-    margin-right: 20;
 }
 
 ListView.picker-field {
@@ -56,4 +44,8 @@ ActionBar.picker-field {
 .field-name-label {
     font-size: 20;
     font-weight: bold;
+}
+
+.submit-button {
+    margin: 20;
 }
