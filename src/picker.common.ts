@@ -159,12 +159,10 @@ export class PickerField extends TextField implements TemplatedItemsView {
             if (selectedIndex !== undefined) {
                 let object = this.getDataItem(selectedIndex);
                 this.selectedIndex = selectedIndex;
-                let value = this.getValueFromField("valueField", this.valueField, object);
+                let value = this.getValueFromField("selectedValue", this.valueField, object);
                 this.selectedValue = value === undefined ? object : value;
 
-                let textValue = this.getValueFromField("textField", this.textField, object);
-                textValue = textValue === undefined ? object : textValue;
-                this.text = textValue;
+                this.updatePickerText(object);
             }
 
             this.disposeModalView();
@@ -415,9 +413,17 @@ export class PickerField extends TextField implements TemplatedItemsView {
         }
     }
 
+    private updatePickerText(object: any) {
+        let textValue = this.getValueFromField("text", this.textField, object);
+        textValue = textValue === undefined ? object : textValue;
+        this.text = textValue;
+    }
+
     protected onModalAnimatedChanged(oldValue: boolean, newValue: boolean) { }
 
-    protected onSelectedValueChanged(oldValue: any, newValue: any) { }
+    protected onSelectedValueChanged(oldValue: any, newValue: any) {
+        this.text = newValue;
+    }
 
     protected onValueFieldChanged(oldValue: string, newValue: string) { }
 
