@@ -156,13 +156,6 @@ export class PickerField extends TextField implements TemplatedItemsView {
 
         const context = this;
         const callback = (sender: View, selectedIndex: number) => {
-            if (selectedIndex !== undefined) {
-                let object = this.getDataItem(selectedIndex);
-                this.selectedIndex = selectedIndex;
-
-                this._updateSelectedValue(object);
-            }
-
             this.disposeModalView();
         };
         this._modalRoot.navigate(() => this._page);
@@ -170,6 +163,13 @@ export class PickerField extends TextField implements TemplatedItemsView {
     }
 
     private listViewItemTapHandler(args: ItemEventData) {
+        if (args.index !== undefined) {
+            let object = this.getDataItem(args.index);
+            this.selectedIndex = args.index;
+
+            this._updateSelectedValue(object);
+        }
+
         this.closeCallback(args.view, args.index);
     }
 
