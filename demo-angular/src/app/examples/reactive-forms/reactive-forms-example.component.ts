@@ -28,7 +28,7 @@ export class ReactiveFormsExampleComponent implements OnInit {
         ]);
 
         this.movieForm = new FormGroup({
-            movie: new FormControl(this.pickerItems.getItem(0).year, Validators.required),
+            movie: new FormControl(this.pickerItems.getItem(0).id, Validators.required),
         });
     }
 
