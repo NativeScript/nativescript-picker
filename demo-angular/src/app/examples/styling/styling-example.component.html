@@ -2,7 +2,7 @@
     <NavigationButton android.systemIcon="ic_menu_back" text="Back" (tap)="goBack()"></NavigationButton>
 </ActionBar>
 <GridLayout rows="50, *">
-    <PickerField row="0" col="0" hint="This is hint" padding="10" class="picker-field" textField="name"
+    <PickerField row="0" col="0" hint="This is hint" padding="10" class="picker-field" textField="name" id="picker"
         [items]="pickerItems" [pickerTitle]="pickerTitle" iOSCloseButtonIcon="14" iOSCloseButtonPosition="left"
         androidCloseButtonPosition="actionBar" androidCloseButtonIcon="ic_media_previous">
         <ng-template let-item="item">

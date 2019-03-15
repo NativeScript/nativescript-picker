@@ -26,3 +26,6 @@ demo-vue/platforms/
 /publish/package/*.tgz
 /publish/package/**/*
 /publish/src/**/*
+test-results.xml
+**/reports/**/*
+**/mochawesome-report/**/*
