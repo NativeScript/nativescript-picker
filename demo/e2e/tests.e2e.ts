@@ -55,11 +55,12 @@ describe("Picker", () => {
             expect(field).to.exist;
         });
 
-        it("Click field and select item", async () => {
+        it("Click field and select item", async function () {
+            this.timeout(QUEUE_WAIT_TIME);
             await field.click();
-            const itemText = "Item 38";
-            const item38 = await scrollToElement(driver, itemText);
-            await item38.click();
+            const itemText = "Item 30";
+            const item30 = await scrollToElement(driver, itemText);
+            await item30.click();
             const title = await driver.findElementByText(gettingStarted);
             expect(title).to.exist;
             const item = await driver.findElementByText(itemText);
@@ -67,16 +68,16 @@ describe("Picker", () => {
         });
 
         it("Click field and cancel selection", async () => {
-            let item38 = await driver.findElementByText("Item 38");
-            await item38.click();
+            let item30 = await driver.findElementByText("Item 30");
+            await item30.click();
             const cancel = await driver.findElementByAccessibilityId("Close");
             await cancel.click();
-            item38 = await driver.findElementByText("Item 38");
-            expect(item38).to.exist;
+            item30 = await driver.findElementByText("Item 30");
+            expect(item30).to.exist;
         });
     });
 
-    const styling = "Styling"
+    const styling = "Styling";
     describe(styling, () => {
         it("Navigate to Styling example", async () => {
             await navigateBackToHome(driver);
@@ -98,7 +99,7 @@ describe("Picker", () => {
         });
     });
 
-    const valueApis = "Value APIs"
+    const valueApis = "Value APIs";
     describe(valueApis, () => {
         it("Navigate to Value APIs example", async () => {
             await navigateBackToHome(driver);

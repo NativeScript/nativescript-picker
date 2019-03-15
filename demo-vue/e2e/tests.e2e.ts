@@ -76,7 +76,7 @@ describe("Picker", () => {
         });
     });
 
-    const styling = "Styling"
+    const styling = "Styling";
     describe(styling, () => {
         it("Navigate to Styling example", async () => {
             await navigateBackToHome(driver);
@@ -98,7 +98,7 @@ describe("Picker", () => {
         });
     });
 
-    const valueApis = "Value APIs"
+    const valueApis = "Value APIs";
     describe(valueApis, () => {
         it("Navigate to Value APIs example", async () => {
             await navigateBackToHome(driver);

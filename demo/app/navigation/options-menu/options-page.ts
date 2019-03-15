@@ -1,4 +1,4 @@
-import * as viewModel from "./options-model";
+import * as viewModel from "./options-page-model";
 
 let viewModelContext: viewModel.ViewModel;
 
