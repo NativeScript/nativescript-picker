@@ -17,17 +17,17 @@
 
 /* Styling css start */
 
-.picker-field {
-    background-color: lightblue;
-    color: blue;
+#picker {
+    color: green;
 }
 
 ListView.picker-field {
-    background-color: green;
+    background-color: lightblue;
     margin-left: 20;
     margin-right: 20;
     margin-bottom: 20;
     separator-color: red;
+    color: blue;
 }
 
 ActionBar.picker-field {

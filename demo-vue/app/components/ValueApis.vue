@@ -4,7 +4,7 @@
       <NavigationButton text="Back" android.systemIcon="ic_menu_back" @tap="onNavigationButtonTap"></NavigationButton>
     </ActionBar>
     <GridLayout rows="50, 50, *">
-      <PickerField hint="Value APIs" 
+      <PickerField hint="Click here" 
                   ref="apiPicker"
                   row="0"
                   padding="10"

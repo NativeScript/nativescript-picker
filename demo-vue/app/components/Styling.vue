@@ -4,7 +4,7 @@
       <NavigationButton text="Back" android.systemIcon="ic_menu_back" @tap="onNavigationButtonTap"></NavigationButton>
     </ActionBar>
     <GridLayout rows="50, *">
-      <PickerField hint="Styling" 
+      <PickerField hint="This is hint" id="picker"
                   row="0"
                   padding="10"
                   :pickerTitle="pickerTitle"
@@ -71,17 +71,17 @@ export default {
     color: red;
 }
 
-.picker-field {
-    background-color: lightblue;
-    color: blue;
+#picker {
+    color: green;
 }
 
 ListView.picker-field {
-    background-color: green;
+    background-color: lightblue;
     margin-left: 20;
     margin-right: 20;
     margin-bottom: 20;
     separator-color: red;
+    color: blue;
 }
 
 ActionBar.picker-field {

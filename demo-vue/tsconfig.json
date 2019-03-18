@@ -5,10 +5,12 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "noEmitHelpers": true,
+        "importHelpers": true,
         "noEmitOnError": true,
         "lib": [
             "es6",
-            "dom"
+            "dom",
+            "es2015.iterable"
         ],
         "baseUrl": ".",
         "paths": {
