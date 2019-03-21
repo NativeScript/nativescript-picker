@@ -1,5 +1,5 @@
 import { Observable } from 'tns-core-modules/data/observable';
-import { Property, Template, booleanConverter } from "tns-core-modules/ui/core/view/view";
+import { Property, Template, booleanConverter, CSSType } from "tns-core-modules/ui/core/view/view";
 import { View, EventData } from "tns-core-modules/ui/core/view/view";
 import { TextField } from 'tns-core-modules/ui/text-field/text-field';
 import { Button } from 'tns-core-modules/ui/button/button';
@@ -28,6 +28,11 @@ export interface PickerField {
     on(event: "itemLoading", callback: (args: ItemEventData) => void, thisArg?: any);
 }
 
+// Allow targeting PickerPage through CSS element selector
+@CSSType("PickerPage")
+export class PickerPage extends Page {}
+
+@CSSType("PickerField")
 export class PickerField extends TextField implements TemplatedItemsView {
 
     public static itemLoadingEvent = "itemLoading";
@@ -62,7 +67,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
 
     private createModalView() {
         this._modalRoot = new Frame();
-        this._page = new Page();
+        this._page = new PickerPage();
         this._modalListView = new ListView();
         this._modalGridLayout = new GridLayout();
         this.initModalView();
@@ -80,14 +85,14 @@ export class PickerField extends TextField implements TemplatedItemsView {
     }
 
     private initModalView() {
+        this.applyCssScope(this._page);
+
         if (this.pickerTitle && this.pickerTitle !== "") {
             this._page.actionBar.title = this.pickerTitle;
         } else {
             this._modalRoot.actionBarVisibility = "always";
             this._page.actionBar.title = "";
         }
-
-        this.applyCssScope(this._page.actionBar);
 
         let actionItem = new ActionItem();
         actionItem.text = "Close";
@@ -111,7 +116,6 @@ export class PickerField extends TextField implements TemplatedItemsView {
 
         this._modalListView.on(ListView.itemLoadingEvent, this.listViewItemLoadingHandler.bind(this));
         this._modalListView.on(ListView.itemTapEvent, this.listViewItemTapHandler.bind(this));
-        this.applyCssScope(this._modalListView);
         this._modalListView.items = this.items;
 
         (<any>this._modalGridLayout).addChild(this._modalListView);
