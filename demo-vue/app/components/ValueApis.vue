@@ -3,17 +3,18 @@
     <ActionBar :title="title">
       <NavigationButton text="Back" android.systemIcon="ic_menu_back" @tap="onNavigationButtonTap"></NavigationButton>
     </ActionBar>
-    <GridLayout rows="50, 50, *">
-      <PickerField hint="Click here" 
+    <GridLayout rows="60, 50, *">
+      <PickerField hint="Click here"
                   ref="apiPicker"
                   row="0"
                   padding="10"
+                  class="picker"
                   for="item in pickerObjects"
                   textField="description"
                   valueField="name"
                   pickerTitle="Select item from list">
         <v-template>
-          <GridLayout rows="auto, auto, auto" backgroundColor="lightBlue">
+          <GridLayout rows="auto, auto, auto">
             <Label :text="item.id" class="item-template-label red-label" margin="20"></Label>
             <Label :text="item.name" row="1" class="item-template-label green-label"></Label>
             <Label :text="item.description" row="2" class="item-template-label green-label" marginBottom="20"></Label>
@@ -64,18 +65,27 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "../app-variables";
 
-.item-template-label {
-    margin-left: 20;
-}
+  .item-template-label {
+      margin-left: 20;
+  }
 
-.green-label {
-    color: green;
-}
+  .green-label {
+      color: green;
+  }
 
-.red-label {
-    color: red;
-}
+  .red-label {
+      color: red;
+  }
+
+  PickerField.picker {
+    margin: 10;
+    height: 40;
+    color: #fff;
+    placeholder-color: #DDD;
+    background: #404040;
+  }
+
 </style>

@@ -85,7 +85,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
     }
 
     private initModalView() {
-        this.applyCssScope(this._page);
+        this.applyCssScope(this._page, true);
 
         if (this.pickerTitle && this.pickerTitle !== "") {
             this._page.actionBar.title = this.pickerTitle;
@@ -94,11 +94,15 @@ export class PickerField extends TextField implements TemplatedItemsView {
             this._page.actionBar.title = "";
         }
 
+        this.applyCssScope(this._page.actionBar);
+
         let actionItem = new ActionItem();
         actionItem.text = "Close";
         actionItem.on(Button.tapEvent, (args: ItemEventData) => {
             this.closeCallback(undefined, undefined);
         });
+
+        this.applyCssScope(<any>actionItem);
 
         if (actionItem.ios) {
             actionItem.ios.position = this.iOSCloseButtonPosition;
@@ -116,12 +120,14 @@ export class PickerField extends TextField implements TemplatedItemsView {
 
         this._modalListView.on(ListView.itemLoadingEvent, this.listViewItemLoadingHandler.bind(this));
         this._modalListView.on(ListView.itemTapEvent, this.listViewItemTapHandler.bind(this));
+        this.applyCssScope(this._modalListView);
         this._modalListView.items = this.items;
 
+        this.applyCssScope(this._modalGridLayout);
         (<any>this._modalGridLayout).addChild(this._modalListView);
     }
 
-    private applyCssScope(view: View) {
+    private applyCssScope(view: View, transferClasses: Boolean = false) {
         const ngKey = Object.keys(this).find(key => key.startsWith('_ngcontent'));
         const vueKey = Object.keys(this).find(key => key.startsWith('data-v'));
         if (ngKey) {
@@ -132,7 +138,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
             view[vueKey] = this[vueKey];
         }
 
-        if (this.className) {
+        if (transferClasses && this.className) {
             let classNames = this.className.split(' ');
             classNames.forEach(element => {
                 view.cssClasses.add(element);

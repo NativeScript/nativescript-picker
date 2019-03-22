@@ -1,5 +1,5 @@
 <navigation:ExamplePage loaded="pageLoaded" xmlns:navigation="navigation/example-page"  xmlns="http://www.nativescript.org/tns.xsd" xmlns:picker="nativescript-picker">
-	<GridLayout rows="50, *">
+	<GridLayout rows="50, 50, *">
 		<picker:PickerField hint="This is hint" id="picker"
 								padding="10"
 								class="picker-field"
@@ -11,7 +11,7 @@
 								androidCloseButtonPosition="actionBar"
 								androidCloseButtonIcon="ic_media_previous">
 			<picker:PickerField.itemTemplate>
-				<GridLayout columns="auto, *" rows="auto, *" backgroundColor="lightBlue">
+				<GridLayout columns="auto, *" rows="auto, *">
 					<Label text="Static text: " colSpan="2" class="item-template-top-label"></Label>
 					<Label text="{{ name }}" col="0" row="1" class="item-template-label red-label" marginBottom="20"/>
 					<Image src="{{ imageUrl }}" col="1" row="0" rowSpan="2" class="item-template-picture" />

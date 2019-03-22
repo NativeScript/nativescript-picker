@@ -17,7 +17,7 @@
 
 .item-template-top-label {
     margin: 20;
-    font-weight: bold;    
+    font-weight: bold;
 }
 
 .green-label {
@@ -31,15 +31,23 @@
 /* Styling css start */
 
 
-ListView.picker-field {
-    background-color: green;
+PickerPage.picker-field {
+    background-color: lightgoldenrodyellow;
+}
+
+.picker-field ListView {
     margin-left: 20;
     margin-right: 20;
     margin-bottom: 20;
     separator-color: red;
 }
 
-.picker-field {
+.picker-field ActionBar {
+    background-color: #369;
+    color: #fff;
+}
+
+PickerField.picker-field {
     background-color: lightblue;
     color: blue;
 }
