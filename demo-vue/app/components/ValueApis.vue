@@ -8,7 +8,6 @@
                   ref="apiPicker"
                   row="0"
                   padding="10"
-                  class="picker"
                   for="item in pickerObjects"
                   textField="description"
                   valueField="name"

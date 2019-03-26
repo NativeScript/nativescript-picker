@@ -2,7 +2,7 @@
     <NavigationButton android.systemIcon="ic_menu_back" text="Back" (tap)="goBack()"></NavigationButton>
 </ActionBar>
 <GridLayout rows="50, 50">
-    <PickerField #myPicker hint="Click here" padding="10" id="myPicker" [items]="pickerItems" class="picker-field"
+    <PickerField #myPicker hint="Click here" padding="10" id="myPicker" [items]="pickerItems"
         textField="description" valueField="name" pickerTitle="Select item from list">
         <ng-template let-item="item">
             <GridLayout rows="auto, auto, auto">
