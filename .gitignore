@@ -17,6 +17,9 @@ src/**/*.d.ts
 !demo/karma.conf.js
 !demo/app/tests/*.js
 demo/platforms/
+demo/outputs/
+demo-angular/outputs/
+demo-vue/outputs/
 demo-angular/platforms/
 demo-vue/platforms/
 !demo/e2e-tests/*

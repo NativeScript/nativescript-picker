@@ -1,8 +1,6 @@
 import { AppiumDriver, SearchOptions, Direction, UIElement } from "nativescript-dev-appium";
 import { runType } from "nativescript-dev-appium/lib/parser";
 
-const isAndroid: boolean = runType.includes("android");
-
 export const QUEUE_WAIT_TIME: number = 600000; // Sometimes SauceLabs threads are not available and the tests wait in a queue to start. Wait 10 min before timeout.
 
 export async function navigateBackToHome(driver: AppiumDriver, view?: string) {
@@ -21,7 +19,7 @@ export async function navigateBackToView(driver: AppiumDriver, view: string) {
 
 export async function scrollToElement(driver: AppiumDriver, element: string, direction: Direction = Direction.down) {
     let listView: UIElement;
-    if (isAndroid) {
+    if (driver.isAndroid) {
         listView = await driver.findElementByClassName("android.widget.FrameLayout");
     }
     else {
@@ -37,7 +35,7 @@ export async function scrollToElement(driver: AppiumDriver, element: string, dir
 
 export async function scrollToElementInListView(driver: AppiumDriver, element: string, direction: Direction = Direction.down) {
     let listView: UIElement;
-    if (isAndroid) {
+    if (driver.isAndroid) {
         listView = await driver.findElementByClassName("android.widget.ListView");
     }
     else {
@@ -63,7 +61,7 @@ export async function swipe(driver: AppiumDriver, item: any, direction: Directio
         swipeX = 10;
     }
 
-    if (isAndroid) {
+    if (driver.isAndroid) {
         const wd = driver.wd();
         const action = new wd.TouchAction(driver.driver);
         action.press({ x: centerX, y: centerY })
@@ -85,7 +83,7 @@ export async function swipe(driver: AppiumDriver, item: any, direction: Directio
 
 export async function swipeToElement(driver: AppiumDriver, element: string, direction: Direction = Direction.down) {
     let listView;
-    if (isAndroid) {
+    if (driver.isAndroid) {
         listView = await driver.findElementByClassName("android.widget.FrameLayout");
     }
     else {

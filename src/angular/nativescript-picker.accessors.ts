@@ -20,9 +20,9 @@ const PICKER_VALUE_ACCESSOR = {
  */
 @Directive({
     selector: "PickerField[ngModel],PickerField[formControlName],PickerField[formControl]," +
-        "PickerField[ngModel],PickerField[formControlName],PickerField[formControl]," +
-        "PickerField[ngModel],PickerField[formControlName],PickerField[formControl]," +
-        "picker-text-field[ngModel],picker-text-field[formControlName],picker-text-field[formControl]",
+        "pickerfield[ngModel],pickerfield[formControlName],pickerfield[formControl]," +
+        "pickerField[ngModel],pickerField[formControlName],pickerField[formControl]," +
+        "picker-field[ngModel],picker-field[formControlName],picker-field[formControl]",
     providers: [PICKER_VALUE_ACCESSOR],
     host: {
         "(selectedValueChange)": "onChange($event.value)",

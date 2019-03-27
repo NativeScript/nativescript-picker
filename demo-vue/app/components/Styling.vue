@@ -9,14 +9,14 @@
                   padding="10"
                   :pickerTitle="pickerTitle"
                   for="item in pickerObjects"
-                  class="picker-field" 
+                  class="picker-field"
                   textField="name"
-                  iOSCloseButtonIcon="14" 
+                  iOSCloseButtonIcon="14"
                   iOSCloseButtonPosition="left"
                   androidCloseButtonPosition="actionBar"
                   androidCloseButtonIcon="ic_media_previous">
         <v-template>
-          <GridLayout columns="auto, *" rows="auto, *" backgroundColor="lightBlue">
+          <GridLayout columns="auto, *" rows="auto, *">
             <Label text="Static text: " colSpan="2" class="item-template-top-label"></Label>
             <Label :text="item.name" col="0" row="1" class="item-template-label red-label"
                 marginBottom="20"></Label>
@@ -64,7 +64,7 @@ export default {
 
 .item-template-top-label {
     margin: 20;
-    font-weight: bold;    
+    font-weight: bold;
 }
 
 .red-label {
@@ -75,7 +75,7 @@ export default {
     color: green;
 }
 
-ListView.picker-field {
+.picker-field ListView {
     background-color: lightblue;
     margin-left: 20;
     margin-right: 20;
@@ -84,7 +84,7 @@ ListView.picker-field {
     color: blue;
 }
 
-ActionBar.picker-field {
+.picker-field ActionBar {
     background-color:yellow;
     color:black;
 }

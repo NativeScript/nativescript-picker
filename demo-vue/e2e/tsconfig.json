@@ -6,6 +6,7 @@
     "emitDecoratorMetadata": true,
     "noEmitHelpers": true,
     "importHelpers": true,
+    "sourceMap": true,
     "types": [
       "mocha",
       "chai",

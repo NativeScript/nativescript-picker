@@ -4,7 +4,7 @@
 
 .item-template-top-label {
     margin: 20;
-    font-weight: bold;    
+    font-weight: bold;
 }
 
 .label-center {
@@ -26,7 +26,7 @@
     background-color: #F5C518;
 }
 
-ListView.picker-field {
+.picker ListView {
     background-color: green;
     margin-left: 20;
     margin-right: 20;
@@ -34,12 +34,10 @@ ListView.picker-field {
     separator-color: red;
 }
 
-ActionBar.picker-field {
-    background-color:yellow;
-    color:black;
+PickerPage ActionBar {
+    background-color: red;
+    color: white;
 }
-
-.picker-field { }
 
 .field-name-label {
     font-size: 20;

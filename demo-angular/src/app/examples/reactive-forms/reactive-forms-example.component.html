@@ -4,9 +4,9 @@
 <GridLayout rows="100, *" columns="*, *" [formGroup]="movieForm" class="yellow-grid">
     <Label row="0" col="0" text="Pick a movie:" class="black-label label-center field-name-label"></Label>
     <PickerField #picker row="0" col="1" formControlName="movie" hint="select a movie" padding="10" pickerTitle="Pick a movie"
-        class="picker-field" modalClass="myModal" valueField="id" textField="name" [items]="pickerItems">
+        class="picker" valueField="id" textField="name" [items]="pickerItems">
         <ng-template let-item="item">
-            <GridLayout rows="auto, *" columns="*, auto" class="yellow-grid">
+            <GridLayout rows="auto, *" columns="*, auto">
                 <Label [text]="item.name" colSpan="2" class="black-label item-template-top-label"></Label>
                 <Label [text]="item.year" col="0" row="1" class="item-template-label" marginBottom="20"></Label>
                 <Image [src]="item.imageUrl" col="1" row="0" rowSpan="2" class="item-template-picture"></Image>
