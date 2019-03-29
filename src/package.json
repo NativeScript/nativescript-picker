@@ -48,7 +48,7 @@
     "homepage": "https://github.com/NativeScript/nativescript-picker",
     "readmeFilename": "README.md",
     "devDependencies": {
-        "tns-core-modules": "^5.2.2",
+        "tns-core-modules": "^5.0.0",
         "tns-platform-declarations": "^5.0.0",
         "typescript": "~3.1.6",
         "prompt": "^1.0.0",
