@@ -96,7 +96,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
 
         this.applyCssScope(this._page.actionBar);
 
-        const isNavigationButton = this.androidCloseButtonPosition === "navigationButton";
+        const isNavigationButton = this._page.android && this.androidCloseButtonPosition === "navigationButton";
         const closeButton = isNavigationButton ? new NavigationButton() : new ActionItem();
 
         closeButton.text = "Close";
