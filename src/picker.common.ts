@@ -13,6 +13,7 @@ import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-a
 import { GridLayout } from 'tns-core-modules/ui/layouts/grid-layout/grid-layout';
 import { ActionItem, NavigationButton } from 'tns-core-modules/ui/action-bar/action-bar';
 import { Frame } from 'tns-core-modules/ui/frame/frame';
+import { isAndroid } from 'tns-core-modules/platform';
 
 export interface ItemsSource {
     length: number;
@@ -96,7 +97,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
 
         this.applyCssScope(this._page.actionBar);
 
-        const isNavigationButton = this._page.android && this.androidCloseButtonPosition === "navigationButton";
+        const isNavigationButton = isAndroid && this.androidCloseButtonPosition === "navigationButton";
         const closeButton = isNavigationButton ? new NavigationButton() : new ActionItem();
 
         closeButton.text = "Close";
