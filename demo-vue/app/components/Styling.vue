@@ -13,8 +13,8 @@
                   textField="name"
                   iOSCloseButtonIcon="14"
                   iOSCloseButtonPosition="left"
-                  androidCloseButtonPosition="actionBar"
-                  androidCloseButtonIcon="ic_media_previous">
+                  androidCloseButtonPosition="navigationButton"
+                  androidCloseButtonIcon="ic_menu_back">
         <v-template>
           <GridLayout columns="auto, *" rows="auto, *">
             <Label text="Static text: " colSpan="2" class="item-template-top-label"></Label>

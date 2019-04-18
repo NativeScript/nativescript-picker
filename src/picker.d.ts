@@ -77,7 +77,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
     /**
      * Gets or sets the position of the 'close' button of the ActionBar of the modal view.
      */
-    public androidCloseButtonPosition: "actionBar" | "actionBarIfRoom" | "popup";
+    public androidCloseButtonPosition: "navigationButton" | "actionBar" | "actionBarIfRoom" | "popup";
 
     /**
      * Gets or sets the icon of the 'close' button of the ActionBar of the modal view.

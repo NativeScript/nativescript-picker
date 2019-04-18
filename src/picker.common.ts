@@ -11,8 +11,9 @@ import { fromObject } from "tns-core-modules/data/observable";
 import { addWeakEventListener, removeWeakEventListener } from "tns-core-modules/ui/core/weak-event-listener";
 import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array/observable-array";
 import { GridLayout } from 'tns-core-modules/ui/layouts/grid-layout/grid-layout';
-import { ActionItem } from 'tns-core-modules/ui/action-bar/action-bar';
+import { ActionItem, NavigationButton } from 'tns-core-modules/ui/action-bar/action-bar';
 import { Frame } from 'tns-core-modules/ui/frame/frame';
+import { isAndroid } from 'tns-core-modules/platform';
 
 export interface ItemsSource {
     length: number;
@@ -47,7 +48,7 @@ export class PickerField extends TextField implements TemplatedItemsView {
     public selectedIndex: number;
     public iOSCloseButtonPosition: "left" | "right";
     public iOSCloseButtonIcon: number;
-    public androidCloseButtonPosition: "actionBar" | "actionBarIfRoom" | "popup";
+    public androidCloseButtonPosition: "navigationButton" | "actionBar" | "actionBarIfRoom" | "popup";
     public androidCloseButtonIcon: string;
     private _modalListView: ListView;
     private _modalRoot: Frame;
@@ -96,31 +97,34 @@ export class PickerField extends TextField implements TemplatedItemsView {
 
         this.applyCssScope(this._page.actionBar);
 
-        let actionItem = new ActionItem();
-        actionItem.text = "Close";
-        actionItem.on(Button.tapEvent, (args: ItemEventData) => {
-            this.closeCallback(undefined, undefined);
+        const isNavigationButton = isAndroid && this.androidCloseButtonPosition === "navigationButton";
+        const closeButton = isNavigationButton ? new NavigationButton() : new ActionItem();
+
+        closeButton.text = "Close";
+        closeButton.on(Button.tapEvent, () => {
+            this.closeCallback();
         });
+        this.applyCssScope(<any>closeButton);
 
-        this.applyCssScope(<any>actionItem);
-
-        if (actionItem.ios) {
-            actionItem.ios.position = this.iOSCloseButtonPosition;
-            actionItem.ios.systemIcon = this.iOSCloseButtonIcon;
+        if (closeButton.ios) {
+            closeButton.ios.position = this.iOSCloseButtonPosition;
+            closeButton.ios.systemIcon = this.iOSCloseButtonIcon;
+        }
+        if (closeButton.android) {
+            closeButton.android.systemIcon = this.androidCloseButtonIcon;
+            closeButton.android.position = <any>this.androidCloseButtonPosition;
         }
 
-        if (actionItem.android) {
-            actionItem.android.systemIcon = this.androidCloseButtonIcon;
-            actionItem.android.position = this.androidCloseButtonPosition;
+        if (isNavigationButton) {
+            this._page.actionBar.navigationButton = closeButton;
+        } else {
+            this._page.actionBar.actionItems.addItem(closeButton);
         }
-
-        this._page.actionBar.actionItems.addItem(actionItem);
 
         this._modalRoot.on(Page.shownModallyEvent, this.shownModallyHandler.bind(this));
 
         this._modalListView.on(ListView.itemLoadingEvent, this.listViewItemLoadingHandler.bind(this));
         this._modalListView.on(ListView.itemTapEvent, this.listViewItemTapHandler.bind(this));
-        this.applyCssScope(this._modalListView);
         this._modalListView.items = this.items;
 
         this.applyCssScope(this._modalGridLayout);
