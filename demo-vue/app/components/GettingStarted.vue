@@ -38,9 +38,6 @@ export default {
     },
     pickerClosedHandler() {
       console.log("Picker > Closed");
-    },
-    onLoaded() {
-      console.log("Loaded");
     }
   }
 };
