@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
 import { DataItemService } from "../services/data-item.service";
+import { EventData } from "tns-core-modules/ui/core/view/view";
 
 @Component({
     selector: "ns-getting-started-example",
@@ -20,5 +21,13 @@ export class GettingStartedExampleComponent implements OnInit {
 
     public goBack() {
         this.routerExtensions.backToPreviousPage();
+    }
+
+    public pickerOpened(args: EventData) {
+        console.log("Picker > Opened:");
+    }
+
+    public pickerClosed(args: EventData) {
+        console.log("Picker > Closed");
     }
 }
