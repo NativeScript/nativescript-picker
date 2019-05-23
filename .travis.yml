@@ -1,22 +1,22 @@
 env:
   global:
-    - ANDROID_PACKAGE_JS='picker-debug-js.apk'
-    - ANDROID_PACKAGE_NG='picker-debug-ng.apk'
-    - ANDROID_PACKAGE_VUE='picker-debug-vue.apk'
+    - ANDROID_PACKAGE_JS='picker-debug-js-next.apk'
+    - ANDROID_PACKAGE_NG='picker-debug-ng-next.apk'
+    - ANDROID_PACKAGE_VUE='picker-debug-vue-next.apk'
     - PACKAGE_FOLDER_JS=$TRAVIS_BUILD_DIR/demo/outputs
     - PACKAGE_FOLDER_NG=$TRAVIS_BUILD_DIR/demo-angular/outputs
     - PACKAGE_FOLDER_VUE=$TRAVIS_BUILD_DIR/demo-vue/outputs
     - SAUCE_STORAGE="https://saucelabs.com/rest/v1/storage/$SAUCE_USER"
-    - IOS_PACKAGE_JS='picker-demo-js.zip'
-    - IOS_PACKAGE_NG='picker-demo-ng.zip'
-    - IOS_PACKAGE_VUE='picker-demo-vue.zip'
+    - IOS_PACKAGE_JS='picker-demo-js-next.zip'
+    - IOS_PACKAGE_NG='picker-demo-ng-next.zip'
+    - IOS_PACKAGE_VUE='picker-demo-vue-next.zip'
 
 git:
   depth: 1
 
 branches:
   only: 
-    - master
+    - next
 matrix:
   include:
     - stage: "lint"
@@ -24,8 +24,7 @@ matrix:
       os: linux
       node_js: "8"
       script: 
-        - cd src && npm i && npm run tslint
-
+        - cd ../src && npm i && npm run tslint
     - stage: "WebPack and Build"
       os: osx
       env:
@@ -35,9 +34,11 @@ matrix:
       language: node_js
       node_js: "8"
       jdk: oraclejdk8
-      before_script: pod repo update
+      before_script:
+        - pod repo update
+        - cd ../demo && tns platform add ios@next
       script:
-        - cd src && npm run build
+        - cd ../src && npm run build
         - cd ../demo && npm i && tns build ios --bundle --env.uglify --copy-to "./outputs/demo.app"
         - cd $PACKAGE_FOLDER_JS && zip -r $IOS_PACKAGE_JS demo.app
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $SAUCE_STORAGE/$IOS_PACKAGE_JS?overwrite=true --data-binary @$PACKAGE_FOLDER_JS/$IOS_PACKAGE_JS"
@@ -49,9 +50,11 @@ matrix:
       language: node_js
       node_js: "8"
       jdk: oraclejdk8
-      before_script: pod repo update
+      before_script:
+        - pod repo update
+        - cd ../demo-vue && tns platform add ios@next
       script:
-        - cd src && npm run build
+        - cd ../src && npm run build
         - cd ../demo-vue && npm i && tns build ios --bundle --env.uglify --copy-to "./outputs/demovue.app"
         - cd $PACKAGE_FOLDER_VUE && zip -r $IOS_PACKAGE_VUE demovue.app
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $SAUCE_STORAGE/$IOS_PACKAGE_VUE?overwrite=true --data-binary @$PACKAGE_FOLDER_VUE/$IOS_PACKAGE_VUE"
@@ -63,9 +66,11 @@ matrix:
       language: node_js
       node_js: "8"
       jdk: oraclejdk8
-      before_script: pod repo update
+      before_script:
+        - pod repo update
+        - cd ../demo-angular && tns platform add ios@next
       script:
-        - cd src && npm run build && npm pack
+        - cd ../src && npm run build && npm pack
         - cd ../demo-angular && tns plugin add ../src/*.tgz
         - npm i && tns build ios --bundle --env.uglify --env.aot --copy-to "./outputs/demoangular.app"
         - cd $PACKAGE_FOLDER_NG && zip -r $IOS_PACKAGE_NG demoangular.app
@@ -77,8 +82,10 @@ matrix:
         - Type="VanillaJS"
       jdk: oraclejdk8
       before_install: nvm install 8
+      before_script:
+        - cd ../demo && tns platform add android@next
       script:
-        - cd src && npm run build
+        - cd ../src && npm run build
         - cd ../demo && npm i && tns build android --bundle --env.uglify --env.snapshot --copy-to "./outputs/app-debug.apk"
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $SAUCE_STORAGE/$ANDROID_PACKAGE_JS?overwrite=true --data-binary @$PACKAGE_FOLDER_JS/app-debug.apk"
     - language: android
@@ -88,8 +95,10 @@ matrix:
         - Type="VueJS"
       jdk: oraclejdk8
       before_install: nvm install 8
+      before_script:
+        - cd ../demo-vue && tns platform add android@next
       script:
-        - cd src && npm run build
+        - cd ../src && npm run build
         - cd ../demo-vue && npm i && tns build android --bundle --env.uglify --copy-to "./outputs/app-debug.apk"
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $SAUCE_STORAGE/$ANDROID_PACKAGE_VUE?overwrite=true --data-binary @$PACKAGE_FOLDER_VUE/app-debug.apk"
     - language: android
@@ -99,35 +108,14 @@ matrix:
         - Type="Angular"
       jdk: oraclejdk8
       before_install: nvm install 8
+      before_script:
+        - cd ../demo-angular && tns platform add android@next
       script:
-        - cd src && npm run build
+        - cd ../src && npm run build
         - cd ../publish && sh pack.sh
         - cd ../demo-angular && tns plugin add ../publish/package/*.tgz
         - npm i && tns build android --bundle --env.uglify --env.snapshot --env.aot --copy-to "./outputs/app-debug.apk"
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $SAUCE_STORAGE/$ANDROID_PACKAGE_NG?overwrite=true --data-binary @$PACKAGE_FOLDER_NG/app-debug.apk"
-    - language: android
-      env:
-        - BuildAndroid="28"
-        - Type="Angular"
-      os: linux
-      jdk: oraclejdk8
-      before_install: nvm install 8.11.4
-      script:
-        - cd src && npm run build
-        - cd ../demo-angular && tns build android
-    - os: osx
-      env:
-        - BuildiOS="12.0"
-        - Xcode="10.0"
-        - Type="Angular"
-      osx_image: xcode10.0
-      language: node_js
-      node_js: "8"
-      jdk: oraclejdk8
-      before_script: pod repo update
-      script:
-        - cd src && npm run build
-        - cd ../demo-angular && tns build ios
     - stage: "UI Tests"
       env:
         - Android="24"
@@ -214,6 +202,29 @@ before_install:
   - sudo pip install six
 
 install:
-  - echo no | npm install -g nativescript
-  - tns usage-reporting disable
-  - tns error-reporting disable
+    - echo no | npm install -g nativescript@next
+    - tns usage-reporting disable
+    - tns error-reporting disable
+    - cd src
+    - npm install tns-core-modules@next -D
+    - npm install nativescript-angular@next -D
+    - cd ../demo
+    - npm install tns-core-modules@next -P
+    - npm install nativescript-dev-webpack@next -D
+    - npm install nativescript-dev-typescript@next -D
+    - ./node_modules/.bin/update-ns-webpack --deps --configs
+    - npm install -D wd@latest
+    - cd ../demo-angular
+    - npm install tns-core-modules@next -P
+    - npm install nativescript-angular@next -P
+    - npm install nativescript-dev-webpack@next -D
+    - npm install nativescript-dev-typescript@next -D
+    - ./node_modules/.bin/update-ns-webpack --deps --configs
+    - ./node_modules/.bin/update-app-ng-deps
+    - npm install -D wd@latest
+    - cd ../demo-vue
+    - npm install tns-core-modules@next -P
+    - npm install nativescript-dev-webpack@next -D
+    - npm install nativescript-dev-typescript@next -D
+    - ./node_modules/.bin/update-ns-webpack --deps --configs
+    - npm install -D wd@latest
