@@ -50,6 +50,9 @@ export class PickerField extends TextField implements TemplatedItemsView {
     public iOSCloseButtonIcon: number;
     public androidCloseButtonPosition: "navigationButton" | "actionBar" | "actionBarIfRoom" | "popup";
     public androidCloseButtonIcon: string;
+    public static pickerOpenedEvent = "pickerOpened";
+    public static pickerClosedEvent = "pickerClosed";
+
     private _modalListView: ListView;
     private _modalRoot: Frame;
     private _page: Page;
@@ -171,9 +174,20 @@ export class PickerField extends TextField implements TemplatedItemsView {
         const context = this;
         const callback = (sender: View, selectedIndex: number) => {
             this.disposeModalView();
+            let closedArgs = <EventData>{
+                eventName: PickerField.pickerClosedEvent,
+                object: this
+            };
+            this.notify(closedArgs);
         };
         this._modalRoot.navigate(() => this._page);
         this.showModal(this._modalRoot, context, callback, true, this.modalAnimated);
+
+        let openedArgs = <EventData>{
+            eventName: PickerField.pickerOpenedEvent,
+            object: this
+        };
+        this.notify(openedArgs);
     }
 
     private listViewItemTapHandler(args: ItemEventData) {
