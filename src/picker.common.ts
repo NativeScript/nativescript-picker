@@ -12,7 +12,7 @@ import { addWeakEventListener, removeWeakEventListener } from "tns-core-modules/
 import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array/observable-array";
 import { GridLayout } from 'tns-core-modules/ui/layouts/grid-layout/grid-layout';
 import { ActionItem, NavigationButton } from 'tns-core-modules/ui/action-bar/action-bar';
-import { Frame } from 'tns-core-modules/ui/frame/frame';
+import { Frame, ShowModalOptions } from 'tns-core-modules/ui/frame/frame';
 import { isAndroid } from 'tns-core-modules/platform';
 
 export interface ItemsSource {
@@ -31,7 +31,7 @@ export interface PickerField {
 
 // Allow targeting PickerPage through CSS element selector
 @CSSType("PickerPage")
-export class PickerPage extends Page {}
+export class PickerPage extends Page { }
 
 @CSSType("PickerField")
 export class PickerField extends TextField implements TemplatedItemsView {
@@ -181,7 +181,10 @@ export class PickerField extends TextField implements TemplatedItemsView {
             this.notify(closedArgs);
         };
         this._modalRoot.navigate(() => this._page);
-        this.showModal(this._modalRoot, context, callback, true, this.modalAnimated);
+        let modalOptions: ShowModalOptions = {
+            context: context, closeCallback: callback, fullscreen: true, animated: this.modalAnimated
+        };
+        this.showModal(this._modalRoot, modalOptions);
 
         let openedArgs = <EventData>{
             eventName: PickerField.pickerOpenedEvent,
