@@ -47,3 +47,11 @@ PickerPage ActionBar {
 .submit-button {
     margin: 20;
 }
+
+.centered-label {
+    margin: 20;
+}
+
+.green-label {
+    color: green;
+}

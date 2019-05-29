@@ -3,8 +3,8 @@
 </ActionBar>
 <GridLayout rows="100, *" columns="*, *" [formGroup]="movieForm" class="yellow-grid">
     <Label row="0" col="0" text="Pick a movie:" class="black-label label-center field-name-label"></Label>
-    <PickerField #picker row="0" col="1" formControlName="movie" hint="select a movie" padding="10" pickerTitle="Pick a movie"
-        class="picker" valueField="id" textField="name" [items]="pickerItems">
+    <PickerField #picker row="0" col="1" formControlName="movie" hint="select a movie" padding="10" pickerTitle="Pick a movie" required
+        class="picker" valueField="id" textField="name" [items]="pickerItems" (pickerOpened)="pickerOpened($event)" (pickerClosed)="pickerClosed($event)">
         <ng-template let-item="item">
             <GridLayout rows="auto, *" columns="*, auto">
                 <Label [text]="item.name" colSpan="2" class="black-label item-template-top-label"></Label>
@@ -14,7 +14,9 @@
         </ng-template>
     </PickerField>
 
-    <GridLayout row="1" col="0" colSpan="2" rows="auto, *" backgroundColor="white">
+    <GridLayout row="1" col="0" colSpan="2" rows="auto, auto, auto" backgroundColor="white">
         <Button class="submit-button" text="Submit form" (tap)="onSubmit()"></Button>
+        <Label class="centered-label" row="1" text="Picker css classes:"></Label>
+        <Label class="centered-label green-label" row="2" [text]="pickerClassName"></Label>
     </GridLayout>
 </GridLayout>>

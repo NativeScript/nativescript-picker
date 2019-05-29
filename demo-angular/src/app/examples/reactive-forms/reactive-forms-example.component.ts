@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms"
 import { RouterExtensions } from "nativescript-angular/router";
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
 import { PickerFieldComponent } from "nativescript-picker/angular";
+import { EventData } from "tns-core-modules/ui/core/view/view";
 
 @Component({
     selector: "ns-reactive-forms-example",
@@ -28,15 +29,19 @@ export class ReactiveFormsExampleComponent implements OnInit {
         ]);
 
         this.movieForm = new FormGroup({
-            movie: new FormControl(this.pickerItems.getItem(0).id, Validators.required),
+            movie: new FormControl(undefined),
         });
     }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        this.pickerClassName = (<any>this.pickerComp.nativeElement).className;
+    }
 
     public movieForm: FormGroup;
 
-Í;    public goBack() {
+    public pickerClassName: string;
+
+    public goBack() {
         this.routerExtensions.backToPreviousPage();
     }
 
@@ -50,6 +55,18 @@ export class ReactiveFormsExampleComponent implements OnInit {
             message: `Forms 'movie' value:  ${formMovieValue}`,
             okButtonText: "OK"
         });
+    }
+
+    public pickerOpened(args: EventData) {
+        this.pickerClassName = (<any>args.object).className;
+
+        console.log("Picker > Opened; class:", this.pickerClassName);
+    }
+
+    public pickerClosed(args: EventData) {
+        this.pickerClassName = (<any>args.object).className;
+
+        console.log("Picker > Closed; class:", this.pickerClassName);
     }
 }
 

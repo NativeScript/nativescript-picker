@@ -26,6 +26,7 @@ export default {
         ref="picker"
         :items="items"
         v-bind="$attrs"
+        v-on="$listeners"
         @itemLoading="onItemLoading"
       >
         <slot />

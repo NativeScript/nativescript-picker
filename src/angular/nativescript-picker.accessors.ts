@@ -25,12 +25,30 @@ const PICKER_VALUE_ACCESSOR = {
         "picker-field[ngModel],picker-field[formControlName],picker-field[formControl]",
     providers: [PICKER_VALUE_ACCESSOR],
     host: {
-        "(selectedValueChange)": "onChange($event.value)",
+        "(selectedValueChange)": "handleSelectedValueChange($event)",
+        "(pickerOpened)": "handlePickerOpened($event)",
+        "(pickerClosed)": "handlePickerClosed($event)"
     },
 })
 export class PickerValueAccessor extends BaseValueAccessor<PickerField> {
+    private _hasBeenOpened = false;
+
     constructor(elementRef: ElementRef) {
         super(elementRef.nativeElement);
+    }
+
+    handleSelectedValueChange(args: any) {
+        if (this._hasBeenOpened) {
+            this.onChange(args.value);
+        }
+    }
+
+    handlePickerOpened(args: any) {
+        this._hasBeenOpened = true;
+    }
+
+    handlePickerClosed(args: any) {
+        this.onTouched();
     }
 
     writeValue(value: any): void {
