@@ -4,7 +4,7 @@
       <NavigationButton text="Back" android.systemIcon="ic_menu_back" @tap="onNavigationButtonTap"></NavigationButton>
     </ActionBar>
     <GridLayout rows="50, *">
-      <PickerField hint="Click here" padding="10" :items="pickerItems"></PickerField>
+      <PickerField hint="Click here" padding="10" :items="pickerItems" @pickerOpened="pickerOpenedHanlder" @pickerClosed="pickerClosedHandler"></PickerField>
     </GridLayout>>
   </Page>
 </template>
@@ -12,6 +12,8 @@
 <script>
 import { PickerField } from "nativescript-picker";
 import * as frameModule from "tns-core-modules/ui/frame";
+import { EventData } from "tns-core-modules/ui/core/view/view";
+
 export default {
   name: "Getting Started",
   computed: {
@@ -31,6 +33,12 @@ export default {
     onNavigationButtonTap() {
       frameModule.topmost().goBack();
     },
+    pickerOpenedHanlder() {
+      console.log("Picker > Opened");
+    },
+    pickerClosedHandler() {
+      console.log("Picker > Closed");
+    }
   }
 };
 </script>

@@ -2,5 +2,5 @@
     <NavigationButton android.systemIcon="ic_menu_back" text="Back" (tap)="goBack()"></NavigationButton>
 </ActionBar>
 <GridLayout rows="50, *">
-    <PickerField hint="Click here" padding="10" [items]="pickerItems"></PickerField>
+    <PickerField hint="Click here" padding="10" [items]="pickerItems" (pickerOpened)="pickerOpened($event)" (pickerClosed)="pickerClosed($event)"></PickerField>
 </GridLayout>

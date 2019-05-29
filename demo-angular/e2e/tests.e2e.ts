@@ -127,7 +127,7 @@ describe("Picker", () => {
             await navigateBackToHome(driver);
             const reactiveExample = await scrollToElement(driver, reactive);
             await reactiveExample.click();
-            field = await driver.findElementByText("The Godfather");
+            field = await driver.findElementByText("select a movie");
             expect(field).to.exist;
         });
 
