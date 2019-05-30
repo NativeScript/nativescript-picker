@@ -14,7 +14,7 @@ import { DataItemService } from "../services/data-item.service";
 export class ValueAPIExampleComponent implements OnInit {
     public pickerItems: ObservableArray<DataItem>;
 
-    @ViewChild("myPicker") myPicker: PickerFieldComponent;
+    @ViewChild("myPicker", { static: false }) myPicker: PickerFieldComponent;
 
     constructor(private itemsService: DataItemService, private routerExtensions: RouterExtensions) {
         this.pickerItems = this.itemsService.getDataItems(20);

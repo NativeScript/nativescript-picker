@@ -13,7 +13,7 @@ import { EventData } from "tns-core-modules/ui/core/view/view";
 })
 export class ReactiveFormsExampleComponent implements OnInit {
     public pickerItems: ObservableArray<Movie>;
-    @ViewChild("picker") pickerComp: PickerFieldComponent;
+    @ViewChild("picker", { static: false }) pickerComp: PickerFieldComponent;
 
     constructor(private routerExtensions: RouterExtensions, private fb: FormBuilder) {
         this.pickerItems = new ObservableArray([
