@@ -71,6 +71,7 @@ matrix:
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $SAUCE_STORAGE/$IOS_PACKAGE_NG?overwrite=true --data-binary @$PACKAGE_FOLDER_NG/$IOS_PACKAGE_NG"
     - language: android
       os: linux
+      dist: trusty
       env:
         - WebpackAndroid="28"
         - Type="VanillaJS"
@@ -84,6 +85,7 @@ matrix:
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $SAUCE_STORAGE/$ANDROID_PACKAGE_JS?overwrite=true --data-binary @$PACKAGE_FOLDER_JS/app-debug.apk"
     - language: android
       os: linux
+      dist: trusty
       env:
         - WebpackAndroid="28"
         - Type="VueJS"
@@ -97,6 +99,7 @@ matrix:
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $SAUCE_STORAGE/$ANDROID_PACKAGE_VUE?overwrite=true --data-binary @$PACKAGE_FOLDER_VUE/app-debug.apk"
     - language: android
       os: linux
+      dist: trusty
       env:
         - WebpackAndroid="28"
         - Type="Angular"
