@@ -26,7 +26,7 @@ matrix:
         - Type="VanillaJS"
       osx_image: xcode10.0
       language: node_js
-      node_js: "8"
+      node_js: "10"
       jdk: oraclejdk8
       before_script:
         - pod repo update
@@ -42,7 +42,7 @@ matrix:
         - Type="VueJS"
       osx_image: xcode10.0
       language: node_js
-      node_js: "8"
+      node_js: "10"
       jdk: oraclejdk8
       before_script:
         - pod repo update
@@ -58,7 +58,7 @@ matrix:
         - Type="Angular"
       osx_image: xcode10.0
       language: node_js
-      node_js: "8"
+      node_js: "10"
       jdk: oraclejdk8
       before_script:
         - pod repo update
@@ -75,7 +75,7 @@ matrix:
         - WebpackAndroid="28"
         - Type="VanillaJS"
       jdk: oraclejdk8
-      before_install: nvm install 8
+      before_install: nvm install 10
       before_script:
         - cd ../demo && tns platform add android@next
       script:
@@ -88,7 +88,7 @@ matrix:
         - WebpackAndroid="28"
         - Type="VueJS"
       jdk: oraclejdk8
-      before_install: nvm install 8
+      before_install: nvm install 10
       before_script:
         - cd ../demo-vue && tns platform add android@next
       script:
@@ -101,7 +101,7 @@ matrix:
         - WebpackAndroid="28"
         - Type="Angular"
       jdk: oraclejdk8
-      before_install: nvm install 8
+      before_install: nvm install 10
       before_script:
         - cd ../demo-angular && tns platform add android@next
       script:
@@ -116,7 +116,7 @@ matrix:
         - Type="Angular"
       language: node_js
       os: linux
-      node_js: "8"
+      node_js: "10"
       script:
         - npm i -g appium
         - cd ../demo-angular && npm i
@@ -126,7 +126,7 @@ matrix:
         - iOS="12.0"
         - Type="Angular"
       language: node_js
-      node_js: "8"
+      node_js: "10"
       script:
         - npm i -g appium
         - cd ../demo-angular && npm i
@@ -137,7 +137,7 @@ matrix:
         - Type="VueJS"
       language: node_js
       os: linux
-      node_js: "8"
+      node_js: "10"
       script:
         - npm i -g appium
         - cd ../demo-vue && npm i
@@ -147,7 +147,7 @@ matrix:
         - iOS="12.0"
         - Type="VueJS"
       language: node_js
-      node_js: "8"
+      node_js: "10"
       script:
         - npm i -g appium
         - cd ../demo-vue && npm i
@@ -158,7 +158,7 @@ matrix:
         - Type="VanillaJS"
       language: node_js
       os: linux
-      node_js: "8"
+      node_js: "10"
       script:
         - npm i -g appium
         - cd ../demo && npm i
@@ -168,7 +168,7 @@ matrix:
         - iOS="12.0"
         - Type="VanillaJS"
       language: node_js
-      node_js: "8"
+      node_js: "10"
       script:
         - npm i -g appium
         - cd ../demo && npm i
