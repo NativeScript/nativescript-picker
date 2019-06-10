@@ -14,9 +14,12 @@
         </ng-template>
     </PickerField>
 
-    <GridLayout row="1" col="0" colSpan="2" rows="auto, auto, auto" backgroundColor="white">
+    <StackLayout row="1" col="0" colSpan="2" backgroundColor="white">
         <Button class="submit-button" text="Submit form" (tap)="onSubmit()"></Button>
-        <Label class="centered-label" row="1" text="Picker css classes:"></Label>
-        <Label class="centered-label green-label" row="2" [text]="pickerClassName"></Label>
-    </GridLayout>
+        <Label class="centered-label label-bold" text="Picker.className:"></Label>
+        <Label class="centered-label" [text]="picker.className"></Label>
+        <Label class="centered-label label-bold" text="Picker.nativeElement.className:"></Label>
+        <Label class="centered-label" [text]="picker.nativeElement.className"></Label>
+        <Label [class]="picker.className.includes('ng-invalid') ? 'centered-label invalid-label' : 'centered-label valid-label'" text="Form status !!!"></Label>
+    </StackLayout>
 </GridLayout>>

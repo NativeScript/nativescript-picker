@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, AfterViewInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
 import { PickerFieldComponent } from "nativescript-picker/angular";
 import { EventData } from "tns-core-modules/ui/core/view/view";
+import { View } from "tns-core-modules/ui/core/view";
 
 @Component({
     selector: "ns-reactive-forms-example",
@@ -11,7 +12,7 @@ import { EventData } from "tns-core-modules/ui/core/view/view";
     styleUrls: ["reactive-forms-example.component.css"],
     templateUrl: "./reactive-forms-example.component.html"
 })
-export class ReactiveFormsExampleComponent implements OnInit {
+export class ReactiveFormsExampleComponent {
     public pickerItems: ObservableArray<Movie>;
     @ViewChild("picker", { static: false }) pickerComp: PickerFieldComponent;
 
@@ -33,13 +34,7 @@ export class ReactiveFormsExampleComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this.pickerClassName = (<any>this.pickerComp.nativeElement).className;
-    }
-
     public movieForm: FormGroup;
-
-    public pickerClassName: string;
 
     public goBack() {
         this.routerExtensions.backToPreviousPage();
@@ -58,15 +53,11 @@ export class ReactiveFormsExampleComponent implements OnInit {
     }
 
     public pickerOpened(args: EventData) {
-        this.pickerClassName = (<any>args.object).className;
-
-        console.log("Picker > Opened; class:", this.pickerClassName);
+        console.log("Picker > Opened; class:", (<View>args.object).className);
     }
 
     public pickerClosed(args: EventData) {
-        this.pickerClassName = (<any>args.object).className;
-
-        console.log("Picker > Closed; class:", this.pickerClassName);
+        console.log("Picker > Closed; class:", (<View>args.object).className);
     }
 }
 
