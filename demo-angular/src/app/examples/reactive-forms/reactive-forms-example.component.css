@@ -39,6 +39,10 @@ PickerPage ActionBar {
     color: white;
 }
 
+.label-bold {
+    font-weight: bold;
+}
+
 .field-name-label {
     font-size: 20;
     font-weight: bold;
@@ -52,6 +56,12 @@ PickerPage ActionBar {
     margin: 20;
 }
 
-.green-label {
+.invalid-label {
+    color: red;
+    font-size: 20;
+}
+
+.valid-label {
     color: green;
+    font-size: 20;
 }
