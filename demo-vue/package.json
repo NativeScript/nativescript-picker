@@ -10,8 +10,8 @@
   },
   "description": "NativeScript PickerField Demo Vue",
   "scripts": {
-    "run.ios": "tns run ios --syncAllFiles --provision NativeScriptDevProfile --bundle",
-    "run.android": "tns run android --syncAllFiles --provision NativeScriptDevProfile --bundle",
+    "run.ios": "tns run ios --provision NativeScriptDevProfile",
+    "run.android": "tns run android --provision NativeScriptDevProfile",
     "build.plugin": "cd ../src && npm run build",
     "ci.tslint": "npm i && tslint --config '../tslint.json' 'src/**/*.ts'",
     "e2e": "node ./node_modules/nativescript-dev-appium/check-dev-deps.js && tsc -p e2e && mocha --opts ./e2e/config/mocha.opts "
