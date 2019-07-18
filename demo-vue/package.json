@@ -13,7 +13,7 @@
     "run.ios": "tns run ios --provision NativeScriptDevProfile",
     "run.android": "tns run android --provision NativeScriptDevProfile",
     "build.plugin": "cd ../src && npm run build",
-    "ci.tslint": "npm i && tslint --config '../tslint.json' 'src/**/*.ts'",
+    "ci.tslint": "npm i && tslint --config '../tslint.json' 'src/**/*.ts'"
   },
   "dependencies": {
     "nativescript-picker": "file:../src",
