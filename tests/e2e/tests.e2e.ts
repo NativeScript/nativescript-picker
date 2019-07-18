@@ -121,7 +121,7 @@ describe("Picker", () => {
         });
     });
 
-    if (process.env["Type"] == 'Angular') {
+    if (process.env["Type"] === 'Angular') {
         const reactive = "Reactive forms";
         describe(reactive, () => {
             it("Navigate to Value APIs example", async () => {
