@@ -121,25 +121,27 @@ describe("Picker", () => {
         });
     });
 
-    const reactive = "Reactive forms";
-    describe(reactive, () => {
-        it("Navigate to Value APIs example", async () => {
-            await navigateBackToHome(driver);
-            const reactiveExample = await scrollToElement(driver, reactive);
-            await reactiveExample.click();
-            field = await driver.findElementByText("select a movie");
-            expect(field).to.exist;
-        });
+    if (process.env["Type"] === 'Angular') {
+        const reactive = "Reactive forms";
+        describe(reactive, () => {
+            it("Navigate to Value APIs example", async () => {
+                await navigateBackToHome(driver);
+                const reactiveExample = await scrollToElement(driver, reactive);
+                await reactiveExample.click();
+                field = await driver.findElementByText("select a movie");
+                expect(field).to.exist;
+            });
 
-        it("Click field and select item", async () => {
-            await field.click();
-            const itemText = "The Wizard of Oz";
-            const item1 = await scrollToElementInListView(driver, itemText);
-            await item1.click();
-            const title = await driver.findElementByText("Reactive Forms");
-            expect(title).to.exist;
-            const pickedItem = await driver.findElementByText(itemText);
-            expect(pickedItem).to.exist;
+            it("Click field and select item", async () => {
+                await field.click();
+                const itemText = "The Wizard of Oz";
+                const item1 = await scrollToElementInListView(driver, itemText);
+                await item1.click();
+                const title = await driver.findElementByText("Reactive Forms");
+                expect(title).to.exist;
+                const pickedItem = await driver.findElementByText(itemText);
+                expect(pickedItem).to.exist;
+            });
         });
-    });
+    }
 });
