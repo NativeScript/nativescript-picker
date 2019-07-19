@@ -4,12 +4,12 @@ import { runType } from "nativescript-dev-appium/lib/parser";
 export const QUEUE_WAIT_TIME: number = 600000; // Sometimes SauceLabs threads are not available and the tests wait in a queue to start. Wait 10 min before timeout.
 
 export async function navigateBackToHome(driver: AppiumDriver, view?: string) {
-    let location = view !== undefined ? view : "PickerField - Angular";
-    let homeTitle = await driver.findElementByTextIfExists(location, SearchOptions.exact);
+    let location = view !== undefined ? view : "PickerField";
+    let homeTitle = await driver.findElementByTextIfExists(location, SearchOptions.contains);
     while (homeTitle === undefined) {
         await driver.navBack();
         await driver.wait(1000);
-        homeTitle = await driver.findElementByTextIfExists(location, SearchOptions.exact);
+        homeTitle = await driver.findElementByTextIfExists(location, SearchOptions.contains);
     }
 }
 
