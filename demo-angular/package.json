@@ -11,9 +11,7 @@
   "description": "NativeScript Application",
   "scripts": {
     "build.plugin": "cd ../src && npm run build",
-    "ci.tslint": "npm i && tslint --config '../tslint.json' 'src/**/*.ts'",
-    "e2e": "node ./node_modules/nativescript-dev-appium/check-dev-deps.js &&  tsc -p e2e  &&  mocha --opts ./e2e/config/mocha.opts ",
-    "e2e-watch": "tsc -p e2e --watch"
+    "ci.tslint": "npm i && tslint --config '../tslint.json' 'src/**/*.ts'"
   },
   "dependencies": {
     "@angular/animations": "~8.0.0",
@@ -35,17 +33,12 @@
   },
   "devDependencies": {
     "@nativescript/schematics": "~0.5.0",
-    "@types/chai": "~4.1.7",
-    "@types/mocha": "~5.2.5",
     "@types/node": "~10.12.18",
-    "mocha": "~5.2.0",
-    "mocha-junit-reporter": "~1.18.0",
-    "mocha-multi": "~1.0.1",
-    "mochawesome": "^3.1.1",
-    "nativescript-dev-appium": "~5.2.0",
     "nativescript-dev-webpack": "~1.0.1",
     "tslint": "~5.11.0",
-    "typescript": "~3.4.5"
+    "typescript": "~3.4.5",
+    "@angular/compiler-cli": "8.0.0",
+    "@ngtools/webpack": "8.0.0"
   },
   "readme": "NativeScript PickerField Demo NG"
 }

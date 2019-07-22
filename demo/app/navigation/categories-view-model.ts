@@ -85,7 +85,7 @@ export class NavigationViewModel extends Observable {
     }
 
     private buildTextFieldPickerExamples(currentParent: NavigationItem) {
-        let exampleItem = new NavigationItem("Getting started", "examples/getting-started/getting-started-page", currentParent);
+        let exampleItem = new NavigationItem("Getting Started", "examples/getting-started/getting-started-page", currentParent);
         currentParent.subItems.push(exampleItem);
 
         exampleItem = new NavigationItem("Styling", "examples/styling/styling-page", currentParent);
