@@ -8,7 +8,7 @@ const rimraf = require('rimraf');
 
 const isSauceRun = isSauceLab;
 
-describe("Picker", () => {
+describe("Picker", function () {
     let driver: AppiumDriver;
 
     before(async function () {
@@ -22,7 +22,7 @@ describe("Picker", () => {
         rimraf('mochawesome-report/*', function () { });
     });
 
-    after(async () => {
+    after(async function () {
         if (isSauceRun) {
             driver.sessionId().then(function (sessionId) {
                 console.log("Report https://saucelabs.com/beta/tests/" + sessionId);
@@ -47,8 +47,9 @@ describe("Picker", () => {
 
     const gettingStarted = "Getting Started";
     let field: UIElement;
-    describe(gettingStarted, () => {
-        it("Navigate to Getting started example", async () => {
+    describe(gettingStarted, function () {
+        it("Navigate to Getting started example", async function () {
+            this.retries(2);
             const getStarted = await scrollToElement(driver, gettingStarted);
             await getStarted.click();
             field = await driver.findElementByText("Click here");
@@ -56,7 +57,6 @@ describe("Picker", () => {
         });
 
         it("Click field and select item", async function () {
-            this.timeout(QUEUE_WAIT_TIME);
             await field.click();
             const itemText = "Item 30";
             const item30 = await scrollToElement(driver, itemText);
@@ -67,7 +67,7 @@ describe("Picker", () => {
             expect(item).to.exist;
         });
 
-        it("Click field and cancel selection", async () => {
+        it("Click field and cancel selection", async function () {
             let item30 = await driver.findElementByText("Item 30");
             await item30.click();
             const cancel = await driver.findElementByAccessibilityId("Close");
@@ -78,8 +78,8 @@ describe("Picker", () => {
     });
 
     const styling = "Styling";
-    describe(styling, () => {
-        it("Navigate to Styling example", async () => {
+    describe(styling, function () {
+        it("Navigate to Styling example", async function () {
             await navigateBackToHome(driver);
             const stylingExample = await scrollToElement(driver, styling);
             await stylingExample.click();
@@ -87,7 +87,7 @@ describe("Picker", () => {
             expect(field).to.exist;
         });
 
-        it("Click field and select item", async () => {
+        it("Click field and select item", async function () {
             await field.click();
             const itemText = "Item 6";
             const item6 = await scrollToElementInListView(driver, itemText);
@@ -100,8 +100,8 @@ describe("Picker", () => {
     });
 
     const valueApis = "Value APIs";
-    describe(valueApis, () => {
-        it("Navigate to Value APIs example", async () => {
+    describe(valueApis, function () {
+        it("Navigate to Value APIs example", async function () {
             await navigateBackToHome(driver);
             const valueExample = await scrollToElement(driver, valueApis);
             await valueExample.click();
@@ -109,7 +109,7 @@ describe("Picker", () => {
             expect(field).to.exist;
         });
 
-        it("Click field and select item", async () => {
+        it("Click field and select item", async function () {
             await field.click();
             const itemText = "Item 1";
             const item1 = await scrollToElement(driver, itemText);
@@ -123,8 +123,8 @@ describe("Picker", () => {
 
     if (process.env["Type"] === 'Angular') {
         const reactive = "Reactive forms";
-        describe(reactive, () => {
-            it("Navigate to Value APIs example", async () => {
+        describe(reactive, function () {
+            it("Navigate to Value APIs example", async function () {
                 await navigateBackToHome(driver);
                 const reactiveExample = await scrollToElement(driver, reactive);
                 await reactiveExample.click();
@@ -132,7 +132,7 @@ describe("Picker", () => {
                 expect(field).to.exist;
             });
 
-            it("Click field and select item", async () => {
+            it("Click field and select item", async function () {
                 await field.click();
                 const itemText = "The Wizard of Oz";
                 const item1 = await scrollToElementInListView(driver, itemText);
