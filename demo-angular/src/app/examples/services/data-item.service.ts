@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
-import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
+import { ObservableArray } from "@nativescript/core";
 import { DataItem } from "./data-item";
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+})
 export class DataItemService {
     private observableStringItems: ObservableArray<string>;
     private observableDataItems: ObservableArray<DataItem>;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { RouterExtensions } from "nativescript-angular/router";
+import { RouterExtensions } from "@nativescript/angular";
 import { PickerFieldComponent } from 'nativescript-picker/angular';
-import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
+import { ObservableArray } from "@nativescript/core";
 import { DataItem } from "../services/data-item";
 import { DataItemService } from "../services/data-item.service";
 

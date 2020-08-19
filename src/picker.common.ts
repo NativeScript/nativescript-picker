@@ -1,22 +1,34 @@
-import { Observable } from 'tns-core-modules/data/observable';
-import { Property, Template, booleanConverter, CSSType } from "tns-core-modules/ui/core/view/view";
-import { View, EventData } from "tns-core-modules/ui/core/view/view";
-import { TextField } from 'tns-core-modules/ui/text-field/text-field';
-import { Button } from 'tns-core-modules/ui/button/button';
-
-import { GestureEventData } from "tns-core-modules/ui/gestures";
-import { ListView, ItemEventData, TemplatedItemsView } from "tns-core-modules/ui/list-view/list-view";
-import { Page, ShownModallyData, Color } from 'tns-core-modules/ui/page';
-import { fromObject } from "tns-core-modules/data/observable";
-import { addWeakEventListener, removeWeakEventListener } from "tns-core-modules/ui/core/weak-event-listener";
-import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array/observable-array";
-import { GridLayout } from 'tns-core-modules/ui/layouts/grid-layout/grid-layout';
-import { ActionItem, NavigationButton } from 'tns-core-modules/ui/action-bar/action-bar';
-import { Frame, ShowModalOptions } from 'tns-core-modules/ui/frame/frame';
-import { isAndroid } from 'tns-core-modules/platform';
+import {
+    booleanConverter,
+    Button,
+    CSSType,
+    EventData,
+    fromObject,
+    GestureEventData,
+    Observable,
+    Property,
+    Template,
+    TextField,
+    View,
+    ItemEventData,
+    ListView,
+    TemplatedItemsView,
+    Page,
+    ShownModallyData,
+    ChangedData,
+    ObservableArray,
+    GridLayout,
+    ActionItem,
+    NavigationButton,
+    Frame,
+    ShowModalOptions,
+    isAndroid
+} from '@nativescript/core';
+import { addWeakEventListener, removeWeakEventListener } from "@nativescript/core/ui/core/weak-event-listener";
 
 export interface ItemsSource {
     length: number;
+
     getItem(index: number): any;
 }
 
@@ -26,12 +38,14 @@ export namespace knownTemplates {
 
 export interface PickerField {
     on(eventNames: string, callback: (data: EventData) => void, thisArg?: any);
+
     on(event: "itemLoading", callback: (args: ItemEventData) => void, thisArg?: any);
 }
 
 // Allow targeting PickerPage through CSS element selector
 @CSSType("PickerPage")
-export class PickerPage extends Page { }
+export class PickerPage extends Page {
+}
 
 @CSSType("PickerField")
 export class PickerField extends TextField implements TemplatedItemsView {
@@ -453,7 +467,8 @@ export class PickerField extends TextField implements TemplatedItemsView {
         this.text = textValue;
     }
 
-    protected onModalAnimatedChanged(oldValue: boolean, newValue: boolean) { }
+    protected onModalAnimatedChanged(oldValue: boolean, newValue: boolean) {
+    }
 
     protected onSelectedValueChanged(oldValue: any, newValue: any) {
         if (this.hasItem(newValue)) {
@@ -507,17 +522,23 @@ export class PickerField extends TextField implements TemplatedItemsView {
         return thisItems.getItem ? thisItems.getItem(index) : thisItems[index];
     }
 
-    protected onValueFieldChanged(oldValue: string, newValue: string) { }
+    protected onValueFieldChanged(oldValue: string, newValue: string) {
+    }
 
-    protected onTextFieldChanged(oldValue: string, newValue: string) { }
+    protected onTextFieldChanged(oldValue: string, newValue: string) {
+    }
 
-    protected onIOSCloseButtonPositionChanged(oldValue: "left" | "right", newValue: "left" | "right") { }
+    protected onIOSCloseButtonPositionChanged(oldValue: "left" | "right", newValue: "left" | "right") {
+    }
 
-    protected onIOSCloseButtonIconChanged(oldValue: number, newValue: number) { }
+    protected onIOSCloseButtonIconChanged(oldValue: number, newValue: number) {
+    }
 
-    protected onAndroidCloseButtonPositionChanged(oldValue: "actionBar" | "actionBarIfRoom" | "popup", newValue: "actionBar" | "actionBarIfRoom" | "popup") { }
+    protected onAndroidCloseButtonPositionChanged(oldValue: "actionBar" | "actionBarIfRoom" | "popup", newValue: "actionBar" | "actionBarIfRoom" | "popup") {
+    }
 
-    protected onAndroidCloseButtonIconChanged(oldValue: string, newValue: string) { }
+    protected onAndroidCloseButtonIconChanged(oldValue: string, newValue: string) {
+    }
 
     protected onPickerTitleChanged(oldValue: string, newValue: string) {
         this.updateActionBarTitle();

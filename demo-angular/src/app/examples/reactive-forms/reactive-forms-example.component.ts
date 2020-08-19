@@ -1,10 +1,8 @@
 import { Component, AfterViewInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
-import { RouterExtensions } from "nativescript-angular/router";
-import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
+import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
+import { RouterExtensions } from "@nativescript/angular";
+import { ObservableArray, EventData, View } from "@nativescript/core";
 import { PickerFieldComponent } from "nativescript-picker/angular";
-import { EventData } from "tns-core-modules/ui/core/view/view";
-import { View } from "tns-core-modules/ui/core/view";
 
 @Component({
     selector: "ns-reactive-forms-example",
@@ -12,7 +10,7 @@ import { View } from "tns-core-modules/ui/core/view";
     styleUrls: ["reactive-forms-example.component.css"],
     templateUrl: "./reactive-forms-example.component.html"
 })
-export class ReactiveFormsExampleComponent {
+export class ReactiveFormsExampleComponent implements AfterViewInit {
     public pickerItems: ObservableArray<Movie>;
     @ViewChild("picker", { static: false }) pickerComp: PickerFieldComponent;
 
@@ -38,6 +36,11 @@ export class ReactiveFormsExampleComponent {
 
     public goBack() {
         this.routerExtensions.backToPreviousPage();
+    }
+
+    public ngAfterViewInit() {
+        setTimeout(() => this.movieForm.reset({movie:3}), 0);
+
     }
 
     public onSubmit() {

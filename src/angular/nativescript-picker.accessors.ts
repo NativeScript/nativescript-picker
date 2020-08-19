@@ -1,7 +1,7 @@
 import { Directive, ElementRef, forwardRef } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
-import { BaseValueAccessor } from "nativescript-angular/forms/value-accessors";
 import { PickerField } from "../picker";
+import { BaseValueAccessor } from "@nativescript/angular";
 
 const PICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,

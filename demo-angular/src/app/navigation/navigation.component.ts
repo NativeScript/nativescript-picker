@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 
-import { ExampleItem } from "./example-item";
-import { ExamplesService } from "./examples.service";
+import {ExampleItem} from "./example-item";
+import {ExamplesService} from "./examples.service";
 
 @Component({
     selector: "ns-navigation",
@@ -11,7 +11,8 @@ import { ExamplesService } from "./examples.service";
 export class NavigationComponent implements OnInit {
     items: Array<ExampleItem>;
 
-    constructor(private itemService: ExamplesService) { }
+    constructor(private itemService: ExamplesService) {
+    }
 
     ngOnInit(): void {
         this.items = this.itemService.getExamples();

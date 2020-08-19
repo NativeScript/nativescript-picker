@@ -1,5 +1,5 @@
 const VUE_VIEW = '__vueVNodeRef__';
-import { KeyedTemplate } from "tns-core-modules/ui/core/view";
+import { KeyedTemplate } from "@nativescript/core";
 
 export default {
     props: {

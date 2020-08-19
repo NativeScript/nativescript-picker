@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { RouterExtensions } from "nativescript-angular/router";
-import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
+import { RouterExtensions } from "@nativescript/angular";
+import { ObservableArray, EventData } from "@nativescript/core";
 import { DataItemService } from "../services/data-item.service";
-import { EventData } from "tns-core-modules/ui/core/view/view";
 
 @Component({
     selector: "ns-getting-started-example",

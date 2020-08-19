@@ -1,11 +1,11 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { registerElement } from "nativescript-angular/element-registry";
-import { ModalDialogService } from "nativescript-angular/modal-dialog";
-import { DIRECTIVES } from "./nativescript-picker.directives";
+import { registerElement, ModalDialogService } from "@nativescript/angular";
+import {DIRECTIVES, PickerFieldComponent} from "./nativescript-picker.directives";
 import { PickerField } from "../picker";
 
 @NgModule({
     declarations: [DIRECTIVES],
+    entryComponents: [PickerFieldComponent],
     exports: [DIRECTIVES],
     providers: [
         ModalDialogService,

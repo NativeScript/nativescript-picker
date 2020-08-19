@@ -1,8 +1,15 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, IterableDiffers, AfterContentInit, OnDestroy } from "@angular/core";
-import { TemplatedItemsComponent, TEMPLATED_ITEMS_COMPONENT } from "nativescript-angular/directives/templated-items-comp";
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    forwardRef,
+    IterableDiffers
+} from "@angular/core";
+import { TemplatedItemsComponent, ɵe } from "@nativescript/angular";
 import { PickerField } from "../picker";
 import { PickerValueAccessor } from "./nativescript-picker.accessors";
-import { View } from "tns-core-modules/ui/core/view";
+import { View } from "@nativescript/core";
 
 @Component({
     selector: "PickerField",
@@ -11,10 +18,10 @@ import { View } from "tns-core-modules/ui/core/view";
             <Placeholder #loader></Placeholder>
         </DetachedContainer>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [{ provide: TEMPLATED_ITEMS_COMPONENT, useExisting: forwardRef(() => PickerFieldComponent) }]
+    providers: [{ provide: ɵe, useExisting: forwardRef(() => PickerFieldComponent) }]
 })
 export class PickerFieldComponent extends TemplatedItemsComponent implements AfterContentInit {
-    private _className: string;
+    private _className: string = "";
 
     public get nativeElement(): PickerField {
         return this.templatedItemsView;
