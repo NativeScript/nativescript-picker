@@ -1,3 +1,10 @@
+## NativeScript 7+
+
+* Use `@nativescript/picker`: `~3.0.0`
+* [Source managed here](https://github.com/NativeScript/plugins)
+
+## If using 6 and below, see the following:
+
 # nativescript-picker
 
 
